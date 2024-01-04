@@ -137,9 +137,19 @@ export const CONSTANT_MSG = {
     ERROR_WHILE_UPDATING_CONFIG:'error while updating config',
     CONFIG_SAVED_SUCCESSFULLY:'config saved successfully',
     AGENCY_ADDED_SUCCESSFULLY:'agency added successfully',
-    SUCCESSFULLY_UPDATED_AGENCY:'successfully updated agency'
-
-
+    SUCCESSFULLY_UPDATED_AGENCY:'successfully updated agency',
+ 
+    RETRIEVED_FLOW_FORMULA_DATA:'retrieved flow formula data',
+    RETRIVED_CONFIG_DATA_SUCCESSFULLY:'retrieved config data successfully',
+    NOT_ABLE_TO_RETRIVED_CONFIG_DATA_SUCCESSFULLY:'not able to retrived config data successfully',
+    NOT_ABLE_TO_UPDATE_CONFIG_DATA_SUCCESSFULLY:'not able to update config data sucessfully',
+    ABLE_TO_UPDATE_CONFIG_DATA_SUCCESSFULLY:'able to update data successfully',
+    AGENCY_ALREADY_EXISTS:'agency already exists',
+    FAILED_TO_ADD_AGENCY_DETAILS:'failed to add agemcy details',
+    BAD_REQUEST:'bad request',
+    ABLE_TO_GET_AGENCY_BY_NAME:'able to get agency by name'
+    ,NOT_ABLE_TO_GET_AGENCY_BY_ITS_NAME:'not able to get agency by its name'
+    
 
     
 

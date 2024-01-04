@@ -13,11 +13,11 @@ import {
 import { StateService } from './state.service';
 import { CONSTANT_MSG } from 'src/common-dto/const';
 
-@Controller('states')
+@Controller('state')
 export class StateController {
   constructor(private readonly stateService: StateService) {}
 
-  @Get('')
+  @Get('states')
   async getStates(@Req() req: any, @Res() res: any) {
     try {
       //console.log("enter in state")

@@ -16,6 +16,31 @@ import { SimService } from './sim.service';
 export class SimController {
   constructor(private readonly simService: SimService) {}
 
+
+  @Post('add')
+  async addSim(@Res() res: any, @Body() body: any) {
+    try {
+      let resp = await this.simService.addSim(body);
+      if (resp.code == 'ECONNREFUSED') {
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .send({ error: 'Device Microservice ECONNREFUSED' });
+      } else if (resp.statusCode === HttpStatus.CREATED) {
+        res
+          .status(resp.statusCode)
+          .send({ success: resp.message});
+      } else {
+        res.status(resp.statusCode).send({ error: resp.message });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+        message: CONSTANT_MSG.INTERNAL_SERVER_ERR,
+        statusCode: false,
+      });
+    }
+  }
+
   @Get('sims')
   async getSims(@Res() res: any) {
     try {
@@ -51,29 +76,6 @@ export class SimController {
         res
           .status(resp.statusCode)
           .send({ success: resp.message, data: resp.data });
-      } else {
-        res.status(resp.statusCode).send({ error: resp.message });
-      }
-    } catch (err) {
-      console.log(err);
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-        message: CONSTANT_MSG.INTERNAL_SERVER_ERR,
-        statusCode: false,
-      });
-    }
-  }
-  @Post('add')
-  async addSim(@Res() res: any, @Body() body: any) {
-    try {
-      let resp = await this.simService.addSim(body);
-      if (resp.code == 'ECONNREFUSED') {
-        res
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .send({ error: 'Device Microservice ECONNREFUSED' });
-      } else if (resp.statusCode === HttpStatus.CREATED) {
-        res
-          .status(resp.statusCode)
-          .send({ success: resp.message});
       } else {
         res.status(resp.statusCode).send({ error: resp.message });
       }

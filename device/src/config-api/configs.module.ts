@@ -6,11 +6,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigTable } from "src/device/entities/config.entity";
 import { CommonService } from "src/device/services/common-service";
 import { RidModule } from "src/rid/modules/rid.module";
+import { FlowFormula } from "src/device/entities/flow_formula.entity";
+import { Rid } from "src/device/entities/rid.entity";
+import { RidConfig } from "src/device/entities/rid_config.entity";
 
 
 @Module({
     imports:[
-        TypeOrmModule.forFeature([ConfigTable]),
+        TypeOrmModule.forFeature([FlowFormula,ConfigTable,Rid,RidConfig]),
         ClientsModule.register([
             {
               name: 'DEVICE_SERVICE',

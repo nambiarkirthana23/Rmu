@@ -13,10 +13,11 @@ import { SimController } from './sim/sim.controller';
 import { SimService } from './sim/sim.service';
 import { ConfigController } from './config/config.controller';
 import { ConfigService } from './config/config.service';
-import { AgencyMasterController } from './masters/agency_master/agency.controller';
-import { AgencyMasterService } from './masters/agency_master/agency.service';
-import { ControllerMasterController } from './masters/controller_master/controller.controller';
-import { ControllerMasterService } from './masters/controller_master/controller.service';
+import { GatewayAgencyController } from './masters/agency-master/agency-controller';
+import { GatewayAgencyMasterService } from './masters/agency-master/agency-service';
+
+// import { ControllerMasterController } from './masters/controller_master/controller.controller';
+// import { ControllerMasterService } from './masters/controller_master/controller.service';
 
 @Module({
   imports: [ 
@@ -30,7 +31,7 @@ import { ControllerMasterService } from './masters/controller_master/controller.
         },
       },
     ]),DeviceModule,RIDModule],
-  controllers: [AppController,StateController,VendorController,SimController,ConfigController,AgencyMasterController,ControllerMasterController],
-  providers: [AppService,HealthCheckMicroservicesService,StateService,VendorService,SimService,ConfigService,AgencyMasterService,ControllerMasterService],
+  controllers: [AppController,StateController,VendorController,SimController,ConfigController,GatewayAgencyController],
+  providers: [AppService,HealthCheckMicroservicesService,StateService,VendorService,SimService,ConfigService,GatewayAgencyMasterService],
 })
 export class AppModule {}

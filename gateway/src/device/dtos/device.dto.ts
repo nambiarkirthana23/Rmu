@@ -2,15 +2,15 @@ import { IsNotEmpty } from "class-validator";
 
 export class DeviceDTO {
     
-    Dt: string;
+    Date: string;
     Time: string;
-    U_code: string;
-    U_name: string;
+    User_code: string;
+    User_name: string;
     HP: string;
-    R_head: string;
-    P_head: string;
-    M_type: string;
-    P_type: string;
+    Rated_head: string;
+    Pump_head: string;
+    Motor_type: string;
+    Pump_type: string;
     Fcode: string;
     P0: string;
     P1: string;
@@ -23,7 +23,7 @@ export class DeviceDTO {
     F4: string;
     P5: string;
     F5: string;
-    P_wp: string;
+    Panel_wp: string;
     Remarks: string;
     PMAXFREQ1: string;
     PFREQLSP1: string;
@@ -38,8 +38,8 @@ export class DeviceDTO {
     IMEI: string;
     Vendor: string;
     State: string;
-    CONT_MFR: string;
-    Cont_no: string;
+    cont: string;
+    Controller_no: string;
     RID_no: string;
     pcntrmode1: string;
     spclpreffreq1: string;

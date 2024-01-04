@@ -2,11 +2,12 @@ import {Body,Controller,HttpStatus,Post,Res,Req,ValidationPipe,Get,Param, Query,
 } from '@nestjs/common';
 import { DeviceService } from '../services/device.service';
 import { CONSTANT_MSG } from 'src/common-dto/const';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('device')
 export class DeviceController {
   constructor(private readonly deviceService: DeviceService) {}
-
+   @ApiBody({})
   @Post('register')
   async registerdevice(
     @Body(new ValidationPipe()) body: any,
@@ -32,20 +33,6 @@ export class DeviceController {
         message: CONSTANT_MSG.INTERNAL_SERVER_ERR,
         statusCode: false,
       });
-    }
-  }
-
-  @Get('channel/:CHANNELID/messages')
-  async getChannel(@Param() param: any, @Query() query: any) {
-    try {
-      console.log('channel', param.CHANNELID);
-      console.log('ps', query.subtopic);
-      console.log('from', query.from);
-      console.log('to', query.to);
-      let channel = param.CHANNELID;
-      const get = await this.deviceService.getDevice(channel);
-    } catch (err) {
-      console.log(err);
     }
   }
 
@@ -120,19 +107,6 @@ export class DeviceController {
     }
   }
 
-  //no working
-  // @Get('refid/:deviceRefId')
-  // async getRefId(@Param() param:any){
-  //   try{
-  //     let deviceRefId = param.deviceRefId
-  //     let resp = await this.deviceService.getRefId(deviceRefId);
-  //     return resp
-  //   }catch(err)
-  //   {
-  //     console.log(err)
-  //     return "error"
-  //   }
-  // }
 
   @Put('/register')
   async updateDevice(@Req() req:any,@Res() res:any){

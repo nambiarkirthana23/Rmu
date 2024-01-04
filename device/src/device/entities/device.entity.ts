@@ -23,7 +23,7 @@ export class Device {
   // @JoinColumn({ name: 'vendor_id' })
   // vendor: Vendor;
 
-
+ 
   @Column({name:'flux_username'})
   flux_username: string;
 

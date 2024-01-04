@@ -18,7 +18,7 @@ import { VendorService } from './vendor.service';
 export class VendorController {
   constructor(private readonly vendorService: VendorService) {}
 
-  @Get('')
+  @Get('vendors')
   async getVendors(@Res() res: any) {
     try {
       let resp = await this.vendorService.getVendors();
