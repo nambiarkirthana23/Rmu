@@ -238,7 +238,7 @@ export class ConfigController{
         res.status(resp.status).send(resp);
          
     }
-
+       
    
     @Delete('/config/:id')
     async deleteConfigFlowFormula(@Param() param: any, @Req() req: any, @Res() res: any) {

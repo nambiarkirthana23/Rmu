@@ -30,5 +30,67 @@ export class GatewayAgencyMasterService
     //       console.log('err', err);
     //       return err;
     //     }
+
+
+    async getAllAgencies():Promise<any>
+    {
+      try{
+         const resp=await this.deviceProxy.send({cmd:'getAllAgencies'},'').toPromise();
+         console.log(resp);
+         return resp;
+      }
+      catch(error)
+      {
+       console.log(error);
+       return error;
+      }
+    }
+
+
+    async getAgency():Promise<any>
+    {
+      try{
+         const resp=await this.deviceProxy.send({cmd:'getAgency'},'').toPromise();
+         console.log(resp);
+         return resp;
+      }
+      catch(error)
+      {
+       console.log(error);
+       return error;
+      }
+    }
+
+     
+    async updateAgency(body:any,id:number)
+    {
+        try{
+           const resp=await this.deviceProxy.send({cmd:'updateAgency'},{body,id}).toPromise();
+           console.log(resp);
+           return resp;
+        }
+        catch(error)
+        {
+            console.log(error);
+            return error;
+        }
+
+    }
+     async deleteAgency(id:number)
+     {
+       try{
+         const resp=await this.deviceProxy.send({cmd:'deleteAgency'},id).toPromise();
+         console.log(resp);
+         return resp;
+       }
+       catch(error)
+       {
+        console.log(error);
+        return error;
+
+       }
+     }
+
+
       }
       

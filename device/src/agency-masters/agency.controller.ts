@@ -29,4 +29,74 @@ export class AgencyMasterController
 
 
 
+@MessagePattern({cmd:'getAllAgencies'})
+async getAllAgencies():Promise<any>
+{
+    try{
+       const resp=await this.agencyMasterService.getAllAgencies();
+       console.log("get all agencies",resp);
+       return resp;
+    }
+    catch(error)
+    {
+     console.log(error);
+     return error;
+    }
+}
+   
+
+@MessagePattern({cmd:'updateAgency'})
+async updateAgency(data:{body:any,id:number}):Promise<any>
+{
+    try{
+        const{body,id}=data;
+    const resp=await this.agencyMasterService.updateAgency(body,id);
+    return resp;
+    }
+    catch(error)
+    {
+      console.log(error);
+      return error;
+
+    }
+}
+
+
+@MessagePattern({cmd:'deleteAgency'})
+async deleteAgency(id:number)
+{
+    try{
+     const resp=await this.agencyMasterService.deleteAgency(id);
+     return resp;
+    }
+    catch(error)
+    {
+     console.log(error);
+     return error;
+    }
+}
+
+
+
+
+// @MessagePattern({cmd:'getAgency'})
+// async getAllAgency():Promise<any>
+// {
+//     try{
+//        const resp=await this.agencyMasterService.getAgency();
+//        console.log("get all agencies",resp);
+//        return resp;
+//     }
+//     catch(error)
+//     {
+//      console.log(error);
+//      return error;
+//     }
+// }
+
+
+
+
+
+
 }
