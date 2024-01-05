@@ -200,26 +200,23 @@ async updateAgency(body: any, id: number) {
       .createQueryBuilder()
       .delete()
       .from(AgencyMaster)
-      .where('ref_id = :refId', { id })
+      .where('ref_id = :id', { id })
       .execute();
      // let qresp = await this.db.runQuery(query, []);
-
+      console.log(deleteResult)
       if(deleteResult) {
-        return {
-          status: HttpStatus.ACCEPTED,
-        }
+       
+        return this.commonService.successMessage('deleteResult',CONSTANT_MSG.SUCCESSFULLY_DELETED_AGENCY_DETAILS,HttpStatus.ACCEPTED)
+
       } else {
-        return {
-          status: HttpStatus.BAD_REQUEST,
-          resp: ' Fail to update'
-        }
+      
+        return this.commonService.errorMessage('',CONSTANT_MSG.FAIL_TO_DELETE,HttpStatus.BAD_REQUEST)
       }
 
     } catch (err) {
-      return {
-        status: HttpStatus.INTERNAL_SERVER_ERROR,
-        resp: '[RMU Service] : Internal Server Error'
-      }
+      
+      return this.commonService.errorMessage('',CONSTANT_MSG.INTERNAL_SERVER_ERR,HttpStatus.INTERNAL_SERVER_ERROR)
+    
     }
   }
 

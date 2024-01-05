@@ -150,7 +150,11 @@ export const CONSTANT_MSG = {
     ABLE_TO_GET_AGENCY_BY_NAME:'able to get agency by name'
     ,NOT_ABLE_TO_GET_AGENCY_BY_ITS_NAME:'not able to get agency by its name',
     GET_AGENCIES_DETAILS_SUCCESSFULLY:"able to get agencies detail successfully",
-    UNABLE_TO_UPDATE_AGENCY:'unable to update agency'
+    UNABLE_TO_UPDATE_AGENCY:'unable to update agency',
+    SUCCESSFULLY_DELETED_AGENCY_DETAILS:' deleted agency details successfully',
+    FAIL_TO_DELETE:'fail to delete',
+    FAILED_TO_ADD:'failed to add',
+    SUCCESSFULLY_ADDED:'successfully added'
 
     
 

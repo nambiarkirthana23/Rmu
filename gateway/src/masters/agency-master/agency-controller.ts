@@ -145,21 +145,22 @@ async updateAgency(@Res() res: any, @Body() body: any, @Param('id') id: any) {
 //     res.status(resp.status).send();
 //   }
 
-
+  
   @Delete('/:id')
   async deleteAgency(@Param('id') id:number,@Res() res:any){
     try{
       console.log("id",id)
 
-      let resp = await this.agencyMasterService.deleteAgency(id)
+      let resp = await this.agencyMasterService.deleteAgency(id);
+      console.log(resp);
       if (resp.code == 'ECONNREFUSED') {
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .send({ error: 'Device Microservice ECONNREFUSED' });
-      } else if (resp.statusCode === HttpStatus.NO_CONTENT) {
+      } else if (resp.statusCode === HttpStatus.ACCEPTED) {
         res
           .status(resp.statusCode)
-          .send({ success: resp.message, data: resp.data });
+          .send({ success: resp.message });
       } else {
         res.status(resp.statusCode).send({ error: resp.message });
       }

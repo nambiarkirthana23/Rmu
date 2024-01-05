@@ -15,6 +15,8 @@ import { ConfigController } from './config/config.controller';
 import { ConfigService } from './config/config.service';
 import { GatewayAgencyController } from './masters/agency-master/agency-controller';
 import { GatewayAgencyMasterService } from './masters/agency-master/agency-service';
+import { GatewayControllerMaster } from './masters/controller-master/controller-master.controller';
+import { GatewayControllerMasterService } from './masters/controller-master/controller-master.service';
 
 // import { ControllerMasterController } from './masters/controller_master/controller.controller';
 // import { ControllerMasterService } from './masters/controller_master/controller.service';
@@ -31,7 +33,7 @@ import { GatewayAgencyMasterService } from './masters/agency-master/agency-servi
         },
       },
     ]),DeviceModule,RIDModule],
-  controllers: [AppController,StateController,VendorController,SimController,ConfigController,GatewayAgencyController],
-  providers: [AppService,HealthCheckMicroservicesService,StateService,VendorService,SimService,ConfigService,GatewayAgencyMasterService],
+  controllers: [AppController,StateController,VendorController,SimController,ConfigController,GatewayAgencyController,GatewayControllerMaster],
+  providers: [AppService,HealthCheckMicroservicesService,StateService,VendorService,SimService,ConfigService,GatewayAgencyMasterService,GatewayControllerMasterService],
 })
 export class AppModule {}

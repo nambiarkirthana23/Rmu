@@ -15,7 +15,8 @@ import { Sim } from 'src/device/entities/sim.entity';
 import { RidSim } from 'src/device/entities/rid.sim.entity';
 ;
 
-import { AgencyMaster } from 'src/agency-masters/agency.entity';
+import { ControllerMaster } from 'src/masters/controller-masters/controller-master.entity';
+import { AgencyMaster } from 'src/masters/agency-masters/agency.entity';
 
 
 export default class TypeOrmConfig {
@@ -28,7 +29,7 @@ export default class TypeOrmConfig {
       password: configService.get('DB_PASSWORD'),
       database: configService.get('DB_NAME'),
       migrations:['migrations/**'],
-      entities: [Device,Rid,RidConfig,DeviceRid,ConfigTable,FlowFormula,Invalid,ReconfigurationDetail,ReconfigurationOldConfig,State,Vendor,Sim,RidSim,AgencyMaster,],
+      entities: [Device,Rid,RidConfig,DeviceRid,ConfigTable,FlowFormula,Invalid,ReconfigurationDetail,ReconfigurationOldConfig,State,Vendor,Sim,RidSim,AgencyMaster,ControllerMaster],
       
         // other configurations
         "logging": true,

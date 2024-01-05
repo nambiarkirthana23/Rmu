@@ -67,6 +67,7 @@ async deleteAgency(id:number)
 {
     try{
      const resp=await this.agencyMasterService.deleteAgency(id);
+     console.log(resp);
      return resp;
     }
     catch(error)

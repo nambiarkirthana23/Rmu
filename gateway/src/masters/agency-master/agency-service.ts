@@ -87,10 +87,10 @@ export class GatewayAgencyMasterService
        {
         console.log(error);
         return error;
-
+        
        }
      }
-
+    //master details
 
       }
       

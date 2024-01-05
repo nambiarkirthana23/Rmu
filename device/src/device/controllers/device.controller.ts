@@ -3,7 +3,7 @@ import { MessagePattern } from '@nestjs/microservices';
 import { cDevice } from 'src/device/interfaces/device.interface';
 import { DeviceService } from 'src/device/services/device.service';
 
-@Controller()
+@Controller('controller-master')
 export class DeviceController {
   constructor(private readonly deviceService: DeviceService) {}
 
