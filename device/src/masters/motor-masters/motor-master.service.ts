@@ -1,19 +1,20 @@
 import { HttpStatus } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CommonService } from "src/device/services/common-service";
-import { ControllerMaster } from "./controller-master.entity";
+
 import { Repository } from "typeorm";
 import { CONSTANT_MSG } from "src/common-dto/const";
+import { MotorMaster } from "./motor-master.entity";
 
 
-export class ControllerMasterService{
+export class MotorMasterService{
     constructor(private commonService:CommonService,
-        @InjectRepository(ControllerMaster)
-    private readonly controllerMasterRepository: Repository<ControllerMaster>){}
+        @InjectRepository(MotorMaster)
+    private readonly motorMasterRepository: Repository<MotorMaster>){}
     //addController = async (body:any) => {
-       async addController(body:any){
+       async addMotor(body:any){
         try {
-          let getP = await this.getController(body.code);
+          let getP = await this.getMotor(body.code);
          console.log("getP",getP);
           if (getP.statusCode === HttpStatus.OK && getP.data.length > 0) {
             return {
@@ -23,7 +24,7 @@ export class ControllerMasterService{
           }
           //let query = `INSERT INTO controller_master (code, description) VALUES('${code}','${description}')`;
           const{code,description}=body;
-          let query=await this.controllerMasterRepository.save(body);
+          let query=await this.motorMasterRepository.save(body);
          // let qresp = await this.db.runQuery(query, []);
          console.log("add controller query",query);
           if (query) {
@@ -52,11 +53,11 @@ export class ControllerMasterService{
         }
       }
 
-      async getController(code: any) {
+      async getMotor(code: any) {
         try {
            
           //let query = `select * from controller_master where code = '${code}';`;
-          let query=await this.controllerMasterRepository.findOne({where:{code}})
+          let query=await this.motorMasterRepository.findOne({where:{code}})
          console.log("get Controller",query);
           
     
@@ -86,9 +87,9 @@ export class ControllerMasterService{
         }
       }
 
-      async getControllers(): Promise<any> {
+      async getMotors(): Promise<any> {
         try {
-          let controller = await this.controllerMasterRepository.find();
+          let controller = await this.motorMasterRepository.find();
           console.log('controller', controller);
           if (!controller || controller.length === 0) {
             return this.commonService.errorMessage(
@@ -114,9 +115,9 @@ export class ControllerMasterService{
       }
 
 
-      async getControllerDetails(ref_id:number): Promise<any> {
+      async getMotorDetails(ref_id:number): Promise<any> {
         try {
-          let controller = await this.controllerMasterRepository.findOne({where:{ref_id:ref_id}});
+          let controller = await this.motorMasterRepository.findOne({where:{ref_id:ref_id}});
           console.log('controller', controller);
           if (!controller  ) {
             return this.commonService.errorMessage(
@@ -142,11 +143,11 @@ export class ControllerMasterService{
       }
 
 
-      async updateController(id:number,body:any){
+      async updateMotor(id:number,body:any){
         try {
           const{code,description}=body;
          
-           let controllerToUpdate=await this.controllerMasterRepository.findOne({where:{ref_id:id}});
+           let controllerToUpdate=await this.motorMasterRepository.findOne({where:{ref_id:id}});
            console.log("find",controllerToUpdate);
          // let query = `UPDATE controller_master SET code = '${data.code}',description = '${data.description}' where ref_id = ${ref_id}`;
         // // 
@@ -157,7 +158,7 @@ export class ControllerMasterService{
         console.log("update controller",body);
           controllerToUpdate.code=body.code;
           controllerToUpdate.description=body.description;
-          let query=await this.controllerMasterRepository.save(controllerToUpdate)
+          let query=await this.motorMasterRepository.save(controllerToUpdate)
           console.log("controller to update",query)
           if (!query) {
             return this.commonService.errorMessage('',CONSTANT_MSG.FAIL_TO_UPDATE,HttpStatus.BAD_REQUEST);
@@ -176,12 +177,12 @@ export class ControllerMasterService{
 
 
       }
-      async deleteController(id:number)
+      async deleteMotor(id:number)
       {
         try{
-         let find_ref_id=await this.controllerMasterRepository.findOne({where:{ref_id:id}});
+         let find_ref_id=await this.motorMasterRepository.findOne({where:{ref_id:id}});
          console.log(find_ref_id);
-          let query=await this.controllerMasterRepository.delete(find_ref_id);
+          let query=await this.motorMasterRepository.delete(find_ref_id);
           if(!query)
           {
            return this.commonService.errorMessage('',CONSTANT_MSG.FAIL_TO_DELETE_CONFIG,HttpStatus.NO_CONTENT)

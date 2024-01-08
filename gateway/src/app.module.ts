@@ -17,6 +17,8 @@ import { GatewayAgencyController } from './masters/agency-master/agency-controll
 import { GatewayAgencyMasterService } from './masters/agency-master/agency-service';
 import { GatewayControllerMaster } from './masters/controller-master/controller-master.controller';
 import { GatewayControllerMasterService } from './masters/controller-master/controller-master.service';
+import { GatewayMotorMasterController } from './masters/motor-master/motor_master.controller';
+import { MotorMasterModule } from './masters/motor-master/motor-master.module';
 
 // import { ControllerMasterController } from './masters/controller_master/controller.controller';
 // import { ControllerMasterService } from './masters/controller_master/controller.service';
@@ -32,7 +34,7 @@ import { GatewayControllerMasterService } from './masters/controller-master/cont
           port: 3001,
         },
       },
-    ]),DeviceModule,RIDModule],
+    ]),DeviceModule,RIDModule,MotorMasterModule],
   controllers: [AppController,StateController,VendorController,SimController,ConfigController,GatewayAgencyController,GatewayControllerMaster],
   providers: [AppService,HealthCheckMicroservicesService,StateService,VendorService,SimService,ConfigService,GatewayAgencyMasterService,GatewayControllerMasterService],
 })

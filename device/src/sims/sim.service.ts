@@ -83,8 +83,7 @@ export class SimService {
     try {
       
       const { simno, operator, mobileno, rid } = body;
-      //  let sim = await this.simRepository.save(body);
-      //let rid_ref_id :body.rid_ref_id
+     
       let rid_ref_id = rid;
       const simData = {
         simno: simno,
@@ -264,7 +263,7 @@ export class SimService {
       )
     }
   }
-
+   
   async getSimDetail(id: number) {
     try {
       console.log("id",id)

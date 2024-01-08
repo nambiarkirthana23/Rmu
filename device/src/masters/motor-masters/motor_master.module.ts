@@ -2,14 +2,15 @@ import { Module } from "@nestjs/common";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { CommonService } from "src/device/services/common-service";
-import { ControllerMasterController } from "./controller-master.controller";
-import { ControllerMasterService } from "./controller-master.service";
-import { ControllerMaster } from "./controller-master.entity";
+import { MotorMaster } from "./motor-master.entity";
+import { MotorMasterController } from "./motor_master.controller";
+import { MotorMasterService } from "./motor-master.service";
+
 
 
 @Module({
     imports:[
-        TypeOrmModule.forFeature([ControllerMaster]), 
+        TypeOrmModule.forFeature([MotorMaster]), 
         ClientsModule.register([
         {
           name: 'DEVICE_SERVICE',
@@ -21,9 +22,9 @@ import { ControllerMaster } from "./controller-master.entity";
         },
       ])
     ],
-    controllers:[ControllerMasterController],
-    providers:[ControllerMasterService,CommonService],
-    exports:[ControllerMasterService]
+    controllers:[MotorMasterController],
+    providers:[MotorMasterService,CommonService],
+    exports:[MotorMasterService]
 })
 
-export  class ControllerMasterModule{}
+export  class MotorMasterModule{}

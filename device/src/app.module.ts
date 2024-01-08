@@ -14,6 +14,7 @@ import { ConfigsModule } from './config-api/configs.module';
 
 import { ControllerMasterModule } from './masters/controller-masters/controller-master.module';
 import { AgencyModule } from './masters/agency-masters/agency.module';
+import { MotorMasterModule } from './masters/motor-masters/motor_master.module';
 
 
 @Module({
@@ -31,7 +32,7 @@ import { AgencyModule } from './masters/agency-masters/agency.module';
         port: 3001,
       },
     },
-  ]),RidModule,DeviceModule,StateModule,VendorModule,SimModule,ConfigsModule,AgencyModule,ControllerMasterModule],
+  ]),RidModule,DeviceModule,StateModule,VendorModule,SimModule,ConfigsModule,AgencyModule,ControllerMasterModule,MotorMasterModule],
   controllers: [AppController],
   providers: [AppService],
 })

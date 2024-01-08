@@ -7,7 +7,7 @@ import { ApiBody } from '@nestjs/swagger';
 @Controller('device')
 export class DeviceController {
   constructor(private readonly deviceService: DeviceService) {}
-   @ApiBody({})
+  //  @ApiBody({})
   @Post('register')
   async registerdevice(
     @Body(new ValidationPipe()) body: any,

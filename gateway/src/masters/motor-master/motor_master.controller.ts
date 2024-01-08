@@ -1,18 +1,19 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Req, Res, ValidationPipe } from "@nestjs/common";
-import { GatewayControllerMasterService } from "./controller-master.service";
-import { CONSTANT_MSG } from "src/common-dto/const";
 
-@Controller('controller')
-export class GatewayControllerMaster
+import { CONSTANT_MSG } from "src/common-dto/const";
+import { GatewayMotorMasterService } from "./motor_master.service";
+
+@Controller('motor')
+export class GatewayMotorMasterController
 {
-    constructor(private readonly controllerMasterService:GatewayControllerMasterService ){}
+    constructor(private readonly motorMasterService:GatewayMotorMasterService ){}
   
 
     @Post('/add')
-    async addController(@Res() res: any, @Body() body:any) {
+    async addmotor(@Res() res: any, @Body() body:any) {
       try {
         console.log("body",body)
-        let resp = await this.controllerMasterService.addController(body);
+        let resp = await this.motorMasterService.addMotor(body);
         console.log(resp);
         if (resp.code == 'ECONNREFUSED') {
           res
@@ -34,9 +35,9 @@ export class GatewayControllerMaster
       }
     }
     @Get('/controllers')
-    async getControllerMasterDetails(@Res() res: any) {
+    async getMotorMasterDetails(@Res() res: any) {
       try {
-        let resp = await this.controllerMasterService.getControllers();
+        let resp = await this.motorMasterService.getMotors();
         if (resp.code == 'ECONNREFUSED') {
           res
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -58,9 +59,9 @@ export class GatewayControllerMaster
 
 
     @Get('/:ref_id')
-  async getController(@Res() res: any, @Param('ref_id') ref_id: number) {
+  async getMotor(@Res() res: any, @Param('ref_id') ref_id: number) {
     try {
-      let resp = await this.controllerMasterService.getController(ref_id);
+      let resp = await this.motorMasterService.getMotor(ref_id);
       if (resp.code == 'ECONNREFUSED') {
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -83,14 +84,14 @@ export class GatewayControllerMaster
 
 
   @Put('update/:id')
-  async updateController(@Param('id') id: number, @Res() res: any,@Req() req:any, @Body() body: any) {
+  async updateMotor(@Param('id') id: number, @Res() res: any,@Req() req:any, @Body() body: any) {
     try {
       console.log('id', id);
       // let id=param.id
       
       const {code,description } = body;
       console.log("body of update controller",body);
-      let resp = await this.controllerMasterService.updateController(
+      let resp = await this.motorMasterService.updateMotor(
        id,body
       );
       console.log(resp);
@@ -116,11 +117,11 @@ export class GatewayControllerMaster
 
 
   @Delete('delete/:id')
-  async deleteController(@Param('id') id:number,@Res() res:any){
+  async deleteMotor(@Param('id') id:number,@Res() res:any){
     try{
       console.log("id",id)
 
-      let resp = await this.controllerMasterService.deleteController(id);
+      let resp = await this.motorMasterService.deleteMotor(id);
       if (resp.code == 'ECONNREFUSED') {
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)

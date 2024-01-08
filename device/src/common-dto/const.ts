@@ -154,9 +154,12 @@ export const CONSTANT_MSG = {
     SUCCESSFULLY_DELETED_AGENCY_DETAILS:' deleted agency details successfully',
     FAIL_TO_DELETE:'fail to delete',
     FAILED_TO_ADD:'failed to add',
-    SUCCESSFULLY_ADDED:'successfully added'
-
-    
+    SUCCESSFULLY_ADDED:'successfully added',
+    CONTROLLER_ALREADY_EXIST:'controller already exists',
+    ABLE_TO_UPDATE_CONTROLLER:'able to update controller',
+    FAIL_TO_UPDATE:'fail to update',
+    FAIL_TO_DELETE_CONFIG:'able to delete config',
+    SUCCESSFULLY_DELETED_CONFIG:'successfully deleted config'
 
 
 

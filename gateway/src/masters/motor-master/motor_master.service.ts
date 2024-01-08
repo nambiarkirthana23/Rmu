@@ -1,15 +1,15 @@
 import { Inject } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 
-export class GatewayControllerMasterService
+export class GatewayMotorMasterService
 {
     constructor(
         @Inject('DEVICE_SERVICE')
         private readonly deviceProxy: ClientProxy,
       ) {}
-    async addController(body:any):Promise<any>{
+    async addMotor(body:any):Promise<any>{
    try{
-    const resp=await this.deviceProxy.send({cmd:'addControllerMaster'},body).toPromise();
+    const resp=await this.deviceProxy.send({cmd:'addMotorMaster'},body).toPromise();
     console.log("response",resp)
     return resp;
    }
@@ -20,10 +20,10 @@ export class GatewayControllerMasterService
    }
     }
 
-    async getControllers():Promise<any>
+    async getMotors():Promise<any>
     {
         try{
-         const resp=await this.deviceProxy.send({cmd:'getControllers'},{}).toPromise();
+         const resp=await this.deviceProxy.send({cmd:'getMotors'},{}).toPromise();
          return resp;
         }
         catch(error)
@@ -35,10 +35,10 @@ export class GatewayControllerMasterService
 
 
 
-    async getController(ref_id:number):Promise<any>
+    async getMotor(ref_id:number):Promise<any>
     {
      try{
-        const resp=await this.deviceProxy.send({cmd:'getController'},ref_id).toPromise();
+        const resp=await this.deviceProxy.send({cmd:'getMotor'},ref_id).toPromise();
         return resp;
      }
      catch(error)
@@ -49,12 +49,12 @@ export class GatewayControllerMasterService
     }
 
 
-     async updateController(id:number,body:any):Promise<any>
+     async updateMotor(id:number,body:any):Promise<any>
     {
        try{
         console.log("id",id);
         console.log("body",body);
-         const resp=await this.deviceProxy.send({cmd:'updateController'},{id,body}).toPromise();
+         const resp=await this.deviceProxy.send({cmd:'updateMotor'},{id,body}).toPromise();
          return resp;
        }
        catch(error)
@@ -66,10 +66,10 @@ export class GatewayControllerMasterService
 
 
 
-    async deleteController(id:number):Promise<any>
+    async deleteMotor(id:number):Promise<any>
     {
         try{
-          const resp=await this.deviceProxy.send({cmd:'deleteController'},id).toPromise();
+          const resp=await this.deviceProxy.send({cmd:'deleteMotor'},id).toPromise();
           return resp;
         }
         catch(error)
