@@ -1,15 +1,15 @@
 import { Inject } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 
-export class GatewayMotorMasterService
+export class GatewayPumpMasterService
 {
     constructor(
         @Inject('DEVICE_SERVICE')
         private readonly deviceProxy: ClientProxy,
       ) {}
-    async addMotor(body:any):Promise<any>{
+    async addPump(body:any):Promise<any>{
    try{
-    const resp=await this.deviceProxy.send({cmd:'addMotorMaster'},body).toPromise();
+    const resp=await this.deviceProxy.send({cmd:'addPumpMaster'},body).toPromise();
     console.log("response",resp)
     return resp;
    }
@@ -20,10 +20,10 @@ export class GatewayMotorMasterService
    }
     }
 
-    async getMotors():Promise<any>
+    async getPumps():Promise<any>
     {
         try{
-         const resp=await this.deviceProxy.send({cmd:'getMotors'},{}).toPromise();
+         const resp=await this.deviceProxy.send({cmd:'getPumps'},{}).toPromise();
          return resp;
         }
         catch(error)
@@ -35,10 +35,10 @@ export class GatewayMotorMasterService
 
 
 
-    async getMotor(ref_id:number):Promise<any>
+    async getPump(id:number):Promise<any>
     {
      try{
-        const resp=await this.deviceProxy.send({cmd:'getMotor'},ref_id).toPromise();
+        const resp=await this.deviceProxy.send({cmd:'getPump'},id).toPromise();
         return resp;
      }
      catch(error)
@@ -49,12 +49,12 @@ export class GatewayMotorMasterService
     }
 
 
-     async updateMotor(id:number,body:any):Promise<any>
+     async updatePump(id:number,body:any):Promise<any>
     {
        try{
         console.log("id",id);
         console.log("body",body);
-         const resp=await this.deviceProxy.send({cmd:'updateMotor'},{id,body}).toPromise();
+         const resp=await this.deviceProxy.send({cmd:'updatePump'},{id,body}).toPromise();
          return resp;
        }
        catch(error)
@@ -66,10 +66,10 @@ export class GatewayMotorMasterService
 
 
 
-    async deleteMotor(id:number):Promise<any>
+    async deletePump(id:number):Promise<any>
     {
         try{
-          const resp=await this.deviceProxy.send({cmd:'deleteMotor'},id).toPromise();
+          const resp=await this.deviceProxy.send({cmd:'deletePump'},id).toPromise();
           return resp;
         }
         catch(error)

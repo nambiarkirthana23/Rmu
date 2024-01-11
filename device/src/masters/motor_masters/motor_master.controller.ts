@@ -3,7 +3,7 @@ import { MessagePattern } from "@nestjs/microservices";
 import { MotorMasterService } from "./motor-master.service";
 
 
-@Controller('motor-master')
+@Controller('motor')
 export class MotorMasterController{
     constructor(private motorMasterService:MotorMasterService){}
     @MessagePattern({ cmd: 'addMotorMaster' })
@@ -11,10 +11,10 @@ export class MotorMasterController{
       try {
         console.log(body);
         const resp = await this.motorMasterService.addMotor(body);
-        console.log('controller master response', resp);
+        console.log('motor master response', resp);
         return resp;
       } catch (err) {
-        console.log('dc', err);
+        console.log('add motor', err);
         return err;
       }
     }

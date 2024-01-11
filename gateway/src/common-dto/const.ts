@@ -39,5 +39,13 @@ export const CONSTANT_MSG = {
   Client_NOT_FOUND: 'client not found',
   IMEI_OK: 'successfully retrieve imei',
   IMEI_NOT_FOUND: 'imei not found',
-  SUCCESSFULLY_UPDATED_AGENCY:'successfully updated agency'
+  SUCCESSFULLY_UPDATED_AGENCY:'successfully updated agency',
+  UPDATED_OEM_SUCCESSFULLY:'updated oem successfully',
+  NOT_ABLE_TO_UPDATE_OEM:'not able to update oem',
+  PROJECT_SAVED_SUCCESSFULLY:'project saved successfully',
+  PROJECT_ALREADY_EXIST:'project already exists',
+   PROJECT_UPDATED_SUCCESSFULLY:'project updated successfully',
+   PROJECT_DELETED_SUCCESSFULLY:'project deleted successfully'
+
+
 };

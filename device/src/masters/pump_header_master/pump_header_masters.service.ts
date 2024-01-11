@@ -1,19 +1,20 @@
 import { HttpStatus } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CommonService } from "src/device/services/common-service";
-import { ControllerMaster } from "./controller-master.entity";
+
 import { Repository } from "typeorm";
 import { CONSTANT_MSG } from "src/common-dto/const";
+import { PumpHeader } from "./pump_header_masters.entity";
 
 
-export class ControllerMasterService{
+export class PumpMasterService{
     constructor(private commonService:CommonService,
-        @InjectRepository(ControllerMaster)
-    private readonly controllerMasterRepository: Repository<ControllerMaster>){}
+        @InjectRepository(PumpHeader)
+    private readonly pumpMasterRepository: Repository<PumpHeader>){}
     //addController = async (body:any) => {
-       async addController(body:any){
+       async addPump(body:any){
         try {
-          let getP = await this.getController(body.code);
+          let getP = await this.getPump(body.code);
          console.log("getP",getP);
           if (getP.statusCode === HttpStatus.OK && getP.data.length > 0) {
             return {
@@ -21,10 +22,9 @@ export class ControllerMasterService{
               resp: 'Controller already exist'
             }
           }
-          //let query = `INSERT INTO controller_master (code, description) VALUES('${code}','${description}')`;
           const{code,description}=body;
-          let query=await this.controllerMasterRepository.save(body);
-         // let qresp = await this.db.runQuery(query, []);
+          let query=await this.pumpMasterRepository.save(body);
+        
          console.log("add controller query",query);
           if (query) {
             return this.commonService.successMessage(
@@ -52,12 +52,12 @@ export class ControllerMasterService{
         }
       }
 
-      async getController(code: any) {
+      async getPump(code: any) {
         try {
            
-          //let query = `select * from controller_master where code = '${code}';`;
-          let query=await this.controllerMasterRepository.findOne({where:{code}})
-         console.log("get Controller",query);
+         
+          let query=await this.pumpMasterRepository.findOne({where:{code}})
+         console.log("get ",query);
           
     
           if (query) {
@@ -86,9 +86,9 @@ export class ControllerMasterService{
         }
       }
 
-      async getControllers(): Promise<any> {
+      async getPumps(): Promise<any> {
         try {
-          let controller = await this.controllerMasterRepository.find();
+          let controller = await this.pumpMasterRepository.find();
           console.log('controller', controller);
           if (!controller || controller.length === 0) {
             return this.commonService.errorMessage(
@@ -114,9 +114,9 @@ export class ControllerMasterService{
       }
 
 
-      async getControllerDetails(ref_id:number): Promise<any> {
+      async getPumpDetails(id:number): Promise<any> {
         try {
-          let controller = await this.controllerMasterRepository.findOne({where:{ref_id:ref_id}});
+          let controller = await this.pumpMasterRepository.findOne({where:{ref_id:id}});
           console.log('controller', controller);
           if (!controller  ) {
             return this.commonService.errorMessage(
@@ -142,46 +142,46 @@ export class ControllerMasterService{
       }
 
 
-      async updateController(id:number,body:any){
-        try {
-          const{code,description}=body;
+      // async updateController(id:number,body:any){
+      //   try {
+      //     const{code,description}=body;
          
-           let controllerToUpdate=await this.controllerMasterRepository.findOne({where:{ref_id:id}});
-           console.log("find",controllerToUpdate);
-         // let query = `UPDATE controller_master SET code = '${data.code}',description = '${data.description}' where ref_id = ${ref_id}`;
-        // // 
-        // let query=await this.controllerMasterRepository.update(
-        //   {ref_id:id},
-        //   body
-        // )
-        console.log("update controller",body);
-          controllerToUpdate.code=body.code;
-          controllerToUpdate.description=body.description;
-          let query=await this.controllerMasterRepository.save(controllerToUpdate)
-          console.log("controller to update",query)
-          if (!query) {
-            return this.commonService.errorMessage('',CONSTANT_MSG.FAIL_TO_UPDATE,HttpStatus.BAD_REQUEST);
-          } else {
+      //      let controllerToUpdate=await this.controllerMasterRepository.findOne({where:{ref_id:id}});
+      //      console.log("find",controllerToUpdate);
+      //    // let query = `UPDATE controller_master SET code = '${data.code}',description = '${data.description}' where ref_id = ${ref_id}`;
+      //   // // 
+      //   // let query=await this.controllerMasterRepository.update(
+      //   //   {ref_id:id},
+      //   //   body
+      //   // )
+      //   console.log("update controller",body);
+      //     controllerToUpdate.code=body.code;
+      //     controllerToUpdate.description=body.description;
+      //     let query=await this.controllerMasterRepository.save(controllerToUpdate)
+      //     console.log("controller to update",query)
+      //     if (!query) {
+      //       return this.commonService.errorMessage('',CONSTANT_MSG.FAIL_TO_UPDATE,HttpStatus.BAD_REQUEST);
+      //     } else {
            
-            return this.commonService.successMessage(query,CONSTANT_MSG.ABLE_TO_UPDATE_CONTROLLER,HttpStatus.ACCEPTED);
-          }
+      //       return this.commonService.successMessage(query,CONSTANT_MSG.ABLE_TO_UPDATE_CONTROLLER,HttpStatus.ACCEPTED);
+      //     }
     
-        } catch (err) {
-          console.log(err)
-          return {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            resp: 'Internal Server Error'
-          }
-        }
+      //   } catch (err) {
+      //     console.log(err)
+      //     return {
+      //       status: HttpStatus.INTERNAL_SERVER_ERROR,
+      //       resp: 'Internal Server Error'
+      //     }
+      //   }
 
 
-      }
-      async deleteController(id:number)
+      // }
+      async deletePump(id:number)
       {
         try{
-         let find_ref_id=await this.controllerMasterRepository.findOne({where:{ref_id:id}});
+         let find_ref_id=await this.pumpMasterRepository.findOne({where:{ref_id:id}});
          console.log(find_ref_id);
-          let query=await this.controllerMasterRepository.delete(find_ref_id);
+          let query=await this.pumpMasterRepository.delete(find_ref_id);
           if(!query)
           {
            return this.commonService.errorMessage('',CONSTANT_MSG.FAIL_TO_DELETE_CONFIG,HttpStatus.NO_CONTENT)
@@ -194,6 +194,47 @@ export class ControllerMasterService{
         {
           console.log(error)
          return this.commonService.errorMessage('',CONSTANT_MSG.INTERNAL_SERVER_ERR,HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+      }
+
+
+
+      async updatePump(body:any,id:number){
+        try{
+          let ref_id = await this.pumpMasterRepository.find({where:{ref_id:id}})
+                //console.log("ref_id",ref_id)
+                if(!ref_id){
+                  return this.commonService.errorMessage(
+                    [],
+                    CONSTANT_MSG.REF_ID_DOES_NOT_PRESENT,
+                    HttpStatus.NOT_FOUND
+                  )
+                }
+         let resp = await this.pumpMasterRepository.update(
+          {ref_id:id},
+          body
+         )
+    
+         if(resp){
+          return this.commonService.successMessage(
+            [],
+            CONSTANT_MSG.CONTROLLER_UPDATED_SUCCESSFULLY,
+            HttpStatus.ACCEPTED
+          )
+         }else{
+          return this.commonService.errorMessage(
+            [],
+            CONSTANT_MSG.ERROR_WHILE_UPDATING,
+            HttpStatus.BAD_REQUEST
+          )
+         }
+        }catch(err){
+          console.log("err",err)
+          return this.commonService.errorMessage(
+            [],
+            CONSTANT_MSG.INTERNAL_SERVER_ERR,
+            HttpStatus.INTERNAL_SERVER_ERROR,
+          );
         }
       }
 

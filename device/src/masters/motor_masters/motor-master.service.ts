@@ -19,7 +19,7 @@ export class MotorMasterService{
           if (getP.statusCode === HttpStatus.OK && getP.data.length > 0) {
             return {
               status: HttpStatus.BAD_REQUEST,
-              resp: 'Controller already exist'
+              resp: 'motor already exist'
             }
           }
           //let query = `INSERT INTO controller_master (code, description) VALUES('${code}','${description}')`;
@@ -57,7 +57,7 @@ export class MotorMasterService{
         try {
            
           //let query = `select * from controller_master where code = '${code}';`;
-          let query=await this.motorMasterRepository.findOne({where:{code}})
+          let query=await this.motorMasterRepository.findOne({where:{code}});
          console.log("get Controller",query);
           
     
@@ -143,40 +143,7 @@ export class MotorMasterService{
       }
 
 
-      async updateMotor(id:number,body:any){
-        try {
-          const{code,description}=body;
-         
-           let controllerToUpdate=await this.motorMasterRepository.findOne({where:{ref_id:id}});
-           console.log("find",controllerToUpdate);
-         // let query = `UPDATE controller_master SET code = '${data.code}',description = '${data.description}' where ref_id = ${ref_id}`;
-        // // 
-        // let query=await this.controllerMasterRepository.update(
-        //   {ref_id:id},
-        //   body
-        // )
-        console.log("update controller",body);
-          controllerToUpdate.code=body.code;
-          controllerToUpdate.description=body.description;
-          let query=await this.motorMasterRepository.save(controllerToUpdate)
-          console.log("controller to update",query)
-          if (!query) {
-            return this.commonService.errorMessage('',CONSTANT_MSG.FAIL_TO_UPDATE,HttpStatus.BAD_REQUEST);
-          } else {
-           
-            return this.commonService.successMessage(query,CONSTANT_MSG.ABLE_TO_UPDATE_CONTROLLER,HttpStatus.ACCEPTED);
-          }
-    
-        } catch (err) {
-          console.log(err)
-          return {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            resp: 'Internal Server Error'
-          }
-        }
-
-
-      }
+      a
       async deleteMotor(id:number)
       {
         try{
@@ -195,6 +162,46 @@ export class MotorMasterService{
         {
           console.log(error)
          return this.commonService.errorMessage('',CONSTANT_MSG.INTERNAL_SERVER_ERR,HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+      }
+
+
+      async updateMotor(body:any,id:number){
+        try{
+          let ref_id = await this.motorMasterRepository.find({where:{ref_id:id}})
+                //console.log("ref_id",ref_id)
+                if(!ref_id){
+                  return this.commonService.errorMessage(
+                    [],
+                    CONSTANT_MSG.REF_ID_DOES_NOT_PRESENT,
+                    HttpStatus.NOT_FOUND
+                  )
+                }
+         let resp = await this.motorMasterRepository.update(
+          {ref_id:id},
+          body
+         )
+    
+         if(resp){
+          return this.commonService.successMessage(
+            [],
+            CONSTANT_MSG.CONTROLLER_UPDATED_SUCCESSFULLY,
+            HttpStatus.ACCEPTED
+          )
+         }else{
+          return this.commonService.errorMessage(
+            [],
+            CONSTANT_MSG.ERROR_WHILE_UPDATING,
+            HttpStatus.BAD_REQUEST
+          )
+         }
+        }catch(err){
+          console.log("err",err)
+          return this.commonService.errorMessage(
+            [],
+            CONSTANT_MSG.INTERNAL_SERVER_ERR,
+            HttpStatus.INTERNAL_SERVER_ERROR,
+          );
         }
       }
 

@@ -47,21 +47,36 @@ export class ControllerMasterController{
     }
 
 
-    @MessagePattern({cmd:'updateController'})
-    async updateController(id:number,body:any)
-    {
-      try{
+    // @MessagePattern({cmd:'updateController'})
+    // async updateController(id:number,body:any)
+    // {
+    //   try{
        
-        const{code,description}=body;
-        console.log("update controller",body);
-        console.log("body",body);
-        const resp=await this.controllerMasterService.updateController(id,body);
+    //     const{code,description}=body;
+    //     console.log("update controller",body);
+    //     console.log("body",body);
+    //     const resp=await this.controllerMasterService.updateController(id,body);
+    //     return resp;
+    //   }
+    //   catch(error)
+    //   {
+    //     console.log(error);
+    //     return error;
+    //   }
+    // }
+
+
+    @MessagePattern({cmd:'updateController'})
+    async updateController(data:{body:any,id:number}){
+      try{
+        console.log("enter device microservice")
+        const {body,id}=data
+        console.log(body,id,"mp")
+        let resp = await this.controllerMasterService.updateController(body,id)
         return resp;
-      }
-      catch(error)
-      {
-        console.log(error);
-        return error;
+      }catch(err){
+        console.log("err",err)
+        return err
       }
     }
 

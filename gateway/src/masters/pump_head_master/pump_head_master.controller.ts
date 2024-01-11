@@ -1,19 +1,19 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Req, Res, ValidationPipe } from "@nestjs/common";
 
 import { CONSTANT_MSG } from "src/common-dto/const";
-import { GatewayMotorMasterService } from "./motor_master.service";
+import { GatewayPumpMasterService } from "./pump_head_master.service";
 
-@Controller('motor')
-export class GatewayMotorMasterController
+@Controller('pump')
+export class GatewayPumpMasterController
 {
-    constructor(private readonly motorMasterService:GatewayMotorMasterService ){}
+    constructor(private readonly pumpMasterService:GatewayPumpMasterService ){}
   
 
     @Post('/add')
-    async addmotor(@Res() res: any, @Body() body:any) {
+    async addPump(@Res() res: any, @Body() body:any) {
       try {
         console.log("body",body)
-        let resp = await this.motorMasterService.addMotor(body);
+        let resp = await this.pumpMasterService.addPump(body);
         console.log(resp);
         if (resp.code == 'ECONNREFUSED') {
           res
@@ -34,10 +34,10 @@ export class GatewayMotorMasterController
         });
       }
     }
-    @Get('/controllers')
-    async getMotorMasterDetails(@Res() res: any) {
+    @Get('/pumps')
+    async getPumpMasterDetails(@Res() res: any) {
       try {
-        let resp = await this.motorMasterService.getMotors();
+        let resp = await this.pumpMasterService.getPumps();
         if (resp.code == 'ECONNREFUSED') {
           res
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -58,10 +58,10 @@ export class GatewayMotorMasterController
     }
 
 
-    @Get('/:ref_id')
-  async getMotor(@Res() res: any, @Param('ref_id') ref_id: number) {
+    @Get('/:id')
+  async getPump(@Res() res: any, @Param('id') id: number) {
     try {
-      let resp = await this.motorMasterService.getMotor(ref_id);
+      let resp = await this.pumpMasterService.getPump(id);
       if (resp.code == 'ECONNREFUSED') {
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -84,14 +84,14 @@ export class GatewayMotorMasterController
 
 
   @Put('update/:id')
-  async updateMotor(@Param('id') id: number, @Res() res: any,@Req() req:any, @Body() body: any) {
+  async updatePump(@Param('id') id: number, @Res() res: any,@Req() req:any, @Body() body: any) {
     try {
       console.log('id', id);
       // let id=param.id
       
       const {code,description } = body;
       console.log("body of update controller",body);
-      let resp = await this.motorMasterService.updateMotor(
+      let resp = await this.pumpMasterService.updatePump(
        id,body
       );
       console.log(resp);
@@ -117,11 +117,11 @@ export class GatewayMotorMasterController
 
 
   @Delete('delete/:id')
-  async deleteMotor(@Param('id') id:number,@Res() res:any){
+  async deleteController(@Param('id') id:number,@Res() res:any){
     try{
       console.log("id",id)
 
-      let resp = await this.motorMasterService.deleteMotor(id);
+      let resp = await this.pumpMasterService.deletePump(id);
       if (resp.code == 'ECONNREFUSED') {
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)

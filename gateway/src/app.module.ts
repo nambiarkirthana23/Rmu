@@ -13,12 +13,24 @@ import { SimController } from './sim/sim.controller';
 import { SimService } from './sim/sim.service';
 import { ConfigController } from './config/config.controller';
 import { ConfigService } from './config/config.service';
-import { GatewayAgencyController } from './masters/agency-master/agency-controller';
-import { GatewayAgencyMasterService } from './masters/agency-master/agency-service';
+import { GatewayAgencyController } from './masters/agency_master/agency-controller';
+import { GatewayAgencyMasterService } from './masters/agency_master/agency-service';
 import { GatewayControllerMaster } from './masters/controller-master/controller-master.controller';
 import { GatewayControllerMasterService } from './masters/controller-master/controller-master.service';
-import { GatewayMotorMasterController } from './masters/motor-master/motor_master.controller';
-import { MotorMasterModule } from './masters/motor-master/motor-master.module';
+import { GatewayMotorMasterController } from './masters/motor_master/motor_master.controller';
+import { GatewayMotorMasterService } from './masters/motor_master/motor_master.service';
+import { GatewayOemMasterController } from './masters/oem-master/oem_master.controller';
+import { GatewayOemMasterService } from './masters/oem-master/oem_master.service';
+import { GatewayProjectController } from './masters/project_master/project_master.controller';
+import { GatewayProjectService } from './masters/project_master/project_master.service';
+import { GatewayPumpMasterController } from './masters/pump_head_master/pump_head_master.controller';
+import { GatewayPumpMasterService } from './masters/pump_head_master/pump_head_master.service';
+import { GatewayPumpModelMasterController } from './masters/pump_model_masters/pump_model_masters.controller';
+import { GatewayPumpModelMasterService } from './masters/pump_model_masters/pump_model_masters.service';
+import { GatewaySolarPumpMasterController } from './masters/solar_pump_masters/solar_pump_masters.controller';
+import { GatewaySolarPumpMasterService } from './masters/solar_pump_masters/solar_pump_masters.service';
+
+
 
 // import { ControllerMasterController } from './masters/controller_master/controller.controller';
 // import { ControllerMasterService } from './masters/controller_master/controller.service';
@@ -34,8 +46,8 @@ import { MotorMasterModule } from './masters/motor-master/motor-master.module';
           port: 3001,
         },
       },
-    ]),DeviceModule,RIDModule,MotorMasterModule],
-  controllers: [AppController,StateController,VendorController,SimController,ConfigController,GatewayAgencyController,GatewayControllerMaster],
-  providers: [AppService,HealthCheckMicroservicesService,StateService,VendorService,SimService,ConfigService,GatewayAgencyMasterService,GatewayControllerMasterService],
+    ]),DeviceModule,RIDModule,],
+  controllers: [AppController,StateController,VendorController,SimController,ConfigController,GatewayAgencyController,GatewayControllerMaster,GatewayMotorMasterController,GatewayOemMasterController,GatewayProjectController,GatewayPumpMasterController,GatewayPumpModelMasterController,GatewaySolarPumpMasterController],
+  providers: [AppService,HealthCheckMicroservicesService,StateService,VendorService,SimService,ConfigService,GatewayAgencyMasterService,GatewayControllerMasterService,GatewayMotorMasterService,GatewayOemMasterService,GatewayProjectService,GatewayPumpMasterService,GatewayPumpModelMasterService,GatewaySolarPumpMasterService],
 })
 export class AppModule {}
