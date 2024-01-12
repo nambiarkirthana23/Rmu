@@ -2,13 +2,15 @@ import { Module } from "@nestjs/common";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { CommonService } from "src/device/services/common-service";
+import { Agency } from "./agency.entity";
 import { AgencyMasterController } from "./agency.controller";
 import { AgencyMasterService } from "./agency.service";
-import { AgencyMaster } from "./agency.entity";
+
+
 
 @Module({
     imports:[
-        TypeOrmModule.forFeature([AgencyMaster]), 
+        TypeOrmModule.forFeature([Agency]), 
         ClientsModule.register([
         {
           name: 'DEVICE_SERVICE',

@@ -11,17 +11,15 @@ import { StateModule } from './portals/states/state.module';
 import { VendorModule } from './portals/vendors/vendor.module';
 import { SimModule } from './sims/sim.module';
 import { ConfigsModule } from './config-api/configs.module';
-
-import { ControllerMasterModule } from './masters/controller_masters/controller-master.module';
 import { AgencyModule } from './masters/agency_masters/agency.module';
-import { MotorMasterModule } from './masters/motor_masters/motor_master.module';
-import { OemMasterModule } from './masters/oem_masters/oem_master.module';
-import { ProjectMasterModule } from './masters/project_masters/project_master.module';
-import { PumpMasterModule } from './masters/pump_header_master/pump_header_masters.module';
-import { PumpModelMasterModule } from './masters/pump_model_masters/pup_model_masters.model';
-import { SolarPump } from './masters/solar_pump_masters/solar_pump_entity';
-import { SolarPumpMasterModule } from './masters/solar_pump_masters/solar_pump_masters.module';
-
+import { ControllerModule } from './masters/controller_masters/controller.module';
+import { MotorModule } from './masters/motor_masters/motor.module';
+import { OemModule } from './masters/oem_masters/oem.module';
+import { ProjectModule } from './masters/project_masters/project.module';
+import { PumpModelModule } from './masters/pump_model_master/pump_model.module';
+import { SolarPumpModule } from './masters/solar_pump/solar_pump.module';
+import { FarmerModule } from './configurations/farmers/module/farmer.module';
+import { PumpSiteModule } from './configurations/pump_site/module/pump_site.module';
 
 @Module({
   imports: [ 
@@ -38,7 +36,10 @@ import { SolarPumpMasterModule } from './masters/solar_pump_masters/solar_pump_m
         port: 3001,
       },
     },
-  ]),RidModule,DeviceModule,StateModule,VendorModule,SimModule,ConfigsModule,AgencyModule,ControllerMasterModule,MotorMasterModule,OemMasterModule,ProjectMasterModule,PumpMasterModule,PumpModelMasterModule,SolarPumpMasterModule],
+  ]),RidModule,DeviceModule,StateModule,VendorModule,
+  SimModule,ConfigsModule,AgencyModule,
+  ControllerModule,MotorModule,OemModule,ProjectModule,
+  PumpModelModule,SolarPumpModule,FarmerModule,PumpSiteModule],
   controllers: [AppController],
   providers: [AppService],
 })

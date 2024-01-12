@@ -1,9 +1,9 @@
 import { InjectRepository } from "@nestjs/typeorm";
-import { CommonService } from "src/device/services/common-service";
-import { PumpModel } from "./pump_model_masters.entity";
-import { Repository } from "typeorm";
-import { CONSTANT_MSG } from "src/common-dto/const";
 import { HttpStatus } from "@nestjs/common";
+import { PumpModel } from "../pump_model_master/pump_model.entity";
+import { CONSTANT_MSG } from "src/common-dto/const";
+import { CommonService } from "src/device/services/common-service";
+import { Repository } from "typeorm";
 
 export class PumpModelMasterService{
     constructor(private commonService:CommonService,
@@ -31,7 +31,7 @@ export class PumpModelMasterService{
           return this.commonService.errorMessage('',CONSTANT_MSG.INTERNAL_SERVER_ERR,HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
-
+    
 
 
       async getOEMByName(model: any) {
