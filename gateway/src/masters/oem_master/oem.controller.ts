@@ -12,7 +12,7 @@ export class OemController{
         private readonly oemService:OemService
     ){}
 
-    @Get('/OEMS')
+    @Get('/oems')
     @ApiOperation({ summary: 'Get all OEMs' })
     @ApiResponse({
         status: HttpStatus.OK,
@@ -82,7 +82,7 @@ export class OemController{
         }
     }
 
-    @Post('')
+    @Post('/add')
     @ApiOperation({ summary: 'Add a new OEM' })
     @ApiResponse({
         status: HttpStatus.CREATED,

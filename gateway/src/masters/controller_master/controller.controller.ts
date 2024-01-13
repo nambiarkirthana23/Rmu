@@ -22,7 +22,7 @@ export class ControllerMasterController {
     private readonly controllerMasterService: ControllerMasterService,
   ) {}
 
-  @Get('')
+  @Get('/controllers')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'All controllers retrieved successfully',

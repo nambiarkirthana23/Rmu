@@ -20,6 +20,7 @@ import { PumpModelModule } from './masters/pump_model_master/pump_model.module';
 import { SolarPumpModule } from './masters/solar_pump/solar_pump.module';
 import { FarmerModule } from './configurations/farmers/module/farmer.module';
 import { PumpSiteModule } from './configurations/pump_site/module/pump_site.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [ 
@@ -39,7 +40,7 @@ import { PumpSiteModule } from './configurations/pump_site/module/pump_site.modu
   ]),RidModule,DeviceModule,StateModule,VendorModule,
   SimModule,ConfigsModule,AgencyModule,
   ControllerModule,MotorModule,OemModule,ProjectModule,
-  PumpModelModule,SolarPumpModule,FarmerModule,PumpSiteModule],
+  PumpModelModule,SolarPumpModule,FarmerModule,PumpSiteModule,UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

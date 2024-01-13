@@ -35,6 +35,8 @@ import { GatewayFarmerController } from './configuration/farmers/controllers/far
 import { GatewayFarmerService } from './configuration/farmers/service/farmers.service';
 import { PumpSiteController } from './configuration/pump_site/controllers/pump_site.controller';
 import { PumpSiteService } from './configuration/pump_site/services/pump_site.service';
+import { UserController } from './user/user.controller';
+import { UserService } from './user/user.service';
 
 
 // import { ControllerMasterController } from './masters/controller_master/controller.controller';
@@ -54,9 +56,10 @@ import { PumpSiteService } from './configuration/pump_site/services/pump_site.se
     ]),DeviceModule,RIDModule,],
   controllers: [AppController,StateController,VendorController,SimController,ConfigController,
     AgencyMasterController,ControllerMasterController,MotorController,OemController,ProjectController,PumpCodeController
-  ,PumpHeadController,PumpModelController,SolarPumpController,GatewayFarmerController,PumpSiteController],
+  ,PumpHeadController,PumpModelController,SolarPumpController,GatewayFarmerController,PumpSiteController,UserController],
   providers: [AppService,HealthCheckMicroservicesService,StateService,VendorService,SimService,ConfigService,AgencyMasterService
     ,ControllerMasterService,MotorService,OemService,ProjectService,PumpCodeService,PumpHeadService,PumpModelService,SolarPumpService,GatewayFarmerService,PumpSiteService
+    ,UserService
     ],
 })
 export class AppModule {}

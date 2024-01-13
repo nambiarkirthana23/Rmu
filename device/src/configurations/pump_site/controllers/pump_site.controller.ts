@@ -43,11 +43,11 @@ export class PumpSiteController
     }
 
 
-    @MessagePattern({ cmd:'getIdPump'})
+    @MessagePattern({ cmd:'updatePumpSite'})
     async updatePumpSite(data:{id:number,body:any}) {
       try {
-        const{id,body}=data;
-        let resp = await this.pumpSiteService.updatePumpSite({id,body});
+        // const{id,body}=data;
+        let resp = await this.pumpSiteService.updatePumpSite(data.id,data.body);
         return resp;
       } catch (err) {
         console.log('err', err);

@@ -123,6 +123,10 @@ async getFarmerByRid(rid: string) {
   {
     try{
         let ref_id=await this.pumpSiteRepository.findOne({where:{ref_id:id}});
+        if(!ref_id)
+        {
+            return this.commonService.successMessage('',CONSTANT_MSG.ID_NOT_FOUND,HttpStatus.NOT_FOUND);
+        }
         let updatePump=await this.pumpSiteRepository.update({ref_id:id},body)
            
 
@@ -131,7 +135,7 @@ async getFarmerByRid(rid: string) {
             return this.commonService.errorMessage('',CONSTANT_MSG.FAILED_TO_RETRIEVE_PUMP_SITE_DATA,HttpStatus.BAD_REQUEST)
         }
         else{
-            return this.commonService.successMessage(updatePump,CONSTANT_MSG.ID_DELETED_SUCCESSFULLY,HttpStatus.ACCEPTED)
+            return this.commonService.successMessage(updatePump,CONSTANT_MSG.UPDATED_PUMP_SITE_SUCCESSFULLY,HttpStatus.ACCEPTED)
         }
       }
       catch(error)

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
 import { PumpSiteService } from "../services/pump_site.service";
 import { ApiBody, ApiResponse } from "@nestjs/swagger";
 import { CONSTANT_MSG } from "src/common-dto/const";
@@ -105,7 +105,7 @@ export class PumpSiteController{
         }
       }
 
-
+  @Put('update/:id')
       async updatePumpSite(@Param('id')id:number,@Body() body:any,@Res() res: any,) {
         try {
           
@@ -116,7 +116,7 @@ export class PumpSiteController{
               .status(HttpStatus.INTERNAL_SERVER_ERROR)
               .send({ error: 'Device Microservice ECONNREFUSED' });
           } else if (resp.statusCode === HttpStatus.ACCEPTED) {
-            res.status(resp.statusCode).send({ success: resp.message ,data:resp.data});
+            res.status(resp.statusCode).send({ success: resp.message});
           } else {
             res.status(resp.statusCode).send({ error: resp.message });
           }

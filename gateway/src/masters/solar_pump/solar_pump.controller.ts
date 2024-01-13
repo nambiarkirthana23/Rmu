@@ -11,7 +11,7 @@ export class SolarPumpController{
         private readonly solarPumpService:SolarPumpService
     ){}
 
-    @Get('')
+    @Get('solarPumps')
     @ApiOperation({ summary: 'Get all solar pumps' })
     @ApiResponse({
         status: HttpStatus.OK,

@@ -209,7 +209,18 @@ export const CONSTANT_MSG = {
    FAILED_PUMP_SITE_DATA:'failed pump site data ',
    FAILED_RETRIEVING_PUMP_SITE_DATA:'failed retrieving pump site data',
    FAILED_TO_RETRIEVE_PUMP_SITE_DATA:'fail to retrieve pump site data',
-   UPDATED_PUMP_SITE_SUCCESSFULLY:'updated pump site successfully'
+   UPDATED_PUMP_SITE_SUCCESSFULLY:'updated pump site successfully',
+   FAIL_TOADD_USER:'fail to add user',
+   USER_ADDED_SUCCESSFULLY:'user added sucessfully',
+   EMAIL_NOT_EXIST:'email not exist',
+   EMAIL_NOT_FOUND:'email not found ',
+   FOUND_EMAIL:'found email',
+   RETRIEVED_USER_DETAILS_SUCCESSFULLY:'retrieved user detalis successfully',
+   FAIL_TO_RETRIEVE_USER_DETAILS:'fail to retrieve user details successfully',
+   FAIL_TO_UPDATE_USER:'fail to update user ',
+   UPDATED_USER_SUCCESSFULLY:'updated user successfully',
+   USER_DELETED_SUCCESSFULLY:'user deleted successfully',
+   FAILED_TO_DELETE_USER:'failed to delete user'
 
 
 

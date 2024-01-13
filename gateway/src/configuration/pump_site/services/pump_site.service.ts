@@ -54,7 +54,7 @@ export class PumpSiteService{
       async updatePumpSite(id:number,body:any){
         try{
             let resp = await this.deviceProxy
-              .send({ cmd: 'updatePump' },{id,body})
+              .send({ cmd: 'updatePumpSite' },{id,body})
               .toPromise();
             return resp;
         }
