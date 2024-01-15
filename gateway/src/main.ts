@@ -46,9 +46,10 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import * as express from 'express';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-
+import * as dotenv from 'dotenv';
 async function bootstrap() {
   const expressApp = express();
+  dotenv.config();
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
 
   // Enable global validation pipe

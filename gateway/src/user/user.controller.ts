@@ -2,10 +2,13 @@ import { Body, Controller,Delete,Get,HttpStatus,Param,Post,Put,Res } from "@nest
 import { UserService } from "./user.service";
 import { CONSTANT_MSG } from "src/common-dto/const";
 import { UserDto } from "./user.dto";
+import { CommonService } from "src/device/services/common-service";
+import { response } from "express";
 
 @Controller('user')
 export class UserController{
-    constructor(private readonly userService:UserService){}
+    constructor(private readonly userService:UserService,
+     ){}
     @Post('/add')
     async addUser(@Body() body: UserDto, @Res() res: any,) {
         try {
@@ -129,5 +132,37 @@ async deleteUser( @Res() res: any,@Param('id') id:number) {
     });
   }
 }
+
+
+
+@Post('/login')
+  async signIn(@Body() body: { email: string; password: string },@Res() res:any) {
+    try {
+      console.log("signIn body",body);
+      const resp = await this.userService.signIn(body);
+        
+       if (resp.statusCode === HttpStatus.OK) {
+        res
+          .status(resp.statusCode)
+          .send({ success: resp.message,data:resp.data.access_token });
+         // console.log(res.data.access_token);
+      } else {
+        res.status(resp.statusCode).send({ error: resp.message });
+      
+      }
+      console.log("resp",resp);
+     
+    } catch (err) {
+      console.error('Login Error:', err);
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+        message: CONSTANT_MSG.INTERNAL_SERVER_ERR,
+        statusCode: false,
+      });
+   
+    }
+
+  }
+
+
 
 }

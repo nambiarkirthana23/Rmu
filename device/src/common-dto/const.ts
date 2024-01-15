@@ -220,7 +220,10 @@ export const CONSTANT_MSG = {
    FAIL_TO_UPDATE_USER:'fail to update user ',
    UPDATED_USER_SUCCESSFULLY:'updated user successfully',
    USER_DELETED_SUCCESSFULLY:'user deleted successfully',
-   FAILED_TO_DELETE_USER:'failed to delete user'
+   FAILED_TO_DELETE_USER:'failed to delete user',
+   USER_DOES_NOT_EXIST:'user does not exist',
+   PASSWORD_DOES_NOT_MATCH:'password does not match'
+
 
 
 

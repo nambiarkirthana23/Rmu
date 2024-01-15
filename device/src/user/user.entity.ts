@@ -6,11 +6,19 @@ export class User{
 
     @PrimaryGeneratedColumn({name:'ref_id'})
     ref_id:number;
+    
+    @Column()
+    role:number
+
+    @ManyToOne(() => UserRoles, role => role.users)
+    @JoinColumn({ name: 'role' })
+    roles: UserRoles;
+  
 
 
-    @ManyToOne(() => UserRoles, userRole => userRole.users)
-    @JoinColumn({ name: 'role' }) 
-    role: UserRoles;
+    // @ManyToOne(() => UserRoles, userRole => userRole.users)
+    // @JoinColumn({ name: 'role' }) 
+    // role: UserRoles;
 
     @Column({name:'email'})
     email:string

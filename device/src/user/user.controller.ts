@@ -77,9 +77,18 @@ export class UserController{
          return error;
         }
     }
-    //done changes in dashboard,added user,user_roles table,add user
-    //get user,get all users,update and delete user 
-
+    @MessagePattern({cmd:'signIn'})
+    async signIn(body:{email:string,password:string}){
+        try{
+            console.log("signIn body",body);
+          const{email,password}=body;
+        let resp = await this.userService.signIn(body);
+        return resp;
+        }catch(err){
+         console.log("err",err)
+         return err;
+        }
+    }
 
 
 

@@ -5,6 +5,9 @@ import { CommonService } from "src/device/services/common-service";
 import { CONSTANT_MSG } from "src/common-dto/const";
 import { HttpStatus } from "@nestjs/common";
 import { UserDto } from "./user.dto";
+import { UserRoles } from "./user_roles.entity";
+import { hash, compare } from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 export class UserService{
   constructor(
@@ -14,35 +17,66 @@ export class UserService{
   ){}
 
 
-   async addUser(body:UserDto)
-  {
-    try{
-
-   let exist=await this.findOneWithEmail(body.email)
-   console.log("exist",exist);
-   
-   if(!exist)
-   {
-    return this.commonService.errorMessage('',CONSTANT_MSG.EMAIL_NOT_FOUND,HttpStatus.NOT_FOUND);
-   }else{
-    
-    let resp=await this.userRepository.save(body);
-    if(!resp)
-    {
-     return this.commonService.errorMessage('',CONSTANT_MSG.FAIL_TOADD_USER,HttpStatus.BAD_REQUEST)
+  async addUser(body: UserDto) {
+    try {
+      console.log("body",body)
+     const{role,email,password,name,mobile,agency,department}=body;
+      let exist = await this.findOneWithEmail(email);
+      console.log("exist", exist);
+      let hashedPassword=await hash(body.password,10);
+      if (!exist) {
+        return this.commonService.errorMessage('', CONSTANT_MSG.EMAIL_NOT_FOUND, HttpStatus.NOT_FOUND);
+      } else {
+       let user=await this.userRepository.create({role,email,password:hashedPassword,name,mobile,agency,department})
+        let resp = await this.userRepository.save(user);
+        if (!resp) {
+          return this.commonService.errorMessage('', CONSTANT_MSG.FAIL_TOADD_USER, HttpStatus.BAD_REQUEST)
+        }
+        else {
+          return this.commonService.successMessage(resp, CONSTANT_MSG.USER_ADDED_SUCCESSFULLY, HttpStatus.CREATED)
+        }
+      }
     }
-    else{
-     return this.commonService.successMessage(resp,CONSTANT_MSG.USER_ADDED_SUCCESSFULLY,HttpStatus.CREATED)
-    }
-    }
-}
-    catch(error)
-    {
-        console.log(error);
-        return this.commonService.errorMessage('',CONSTANT_MSG.INTERNAL_SERVER_ERR,HttpStatus.INTERNAL_SERVER_ERROR)
+    catch (error) {
+      console.log(error);
+      return this.commonService.errorMessage('', CONSTANT_MSG.INTERNAL_SERVER_ERR, HttpStatus.INTERNAL_SERVER_ERROR)
 
     }
+  
   }
+  
+
+
+
+//    async addUser(body:UserDto)
+//   {
+//     try{
+
+//    let exist=await this.findOneWithEmail(body.email)
+//    console.log("exist",exist);
+   
+//    if(!exist)
+//    {
+//     return this.commonService.errorMessage('',CONSTANT_MSG.EMAIL_NOT_FOUND,HttpStatus.NOT_FOUND);
+//    }else{
+    
+//     let resp=await this.userRepository.save(body);
+//     if(!resp)
+//     {
+//      return this.commonService.errorMessage('',CONSTANT_MSG.FAIL_TOADD_USER,HttpStatus.BAD_REQUEST)
+//     }
+//     else{
+//      return this.commonService.successMessage(resp,CONSTANT_MSG.USER_ADDED_SUCCESSFULLY,HttpStatus.CREATED)
+//     }
+//     }
+// }
+//     catch(error)
+//     {
+//         console.log(error);
+//         return this.commonService.errorMessage('',CONSTANT_MSG.INTERNAL_SERVER_ERR,HttpStatus.INTERNAL_SERVER_ERROR)
+
+//     }
+//   }
 
 
 
@@ -167,4 +201,68 @@ export class UserService{
     return this.commonService.errorMessage('',CONSTANT_MSG.INTERNAL_SERVER_ERR,HttpStatus.INTERNAL_SERVER_ERROR)
   }
 }
+
+
+async signIn(body: { email: string; password: string }) {
+  try {
+    console.log("signIn body",body);
+    const { email, password } = body;
+
+    let user = await this.userRepository
+      .createQueryBuilder('a')
+      .select([
+        'a.ref_id as ref_id',
+        'a.email as email',
+        'a.password as password',
+        'a.name as name',
+        'a.department as department',
+        'b.role as role',
+      ])
+      .innerJoin(UserRoles, 'b', 'a.role = b.ref_id')
+      .where('a.email = :email', { email })
+      .getRawOne(); 
+    console.log('user', user);
+  
+
+    if (!user) {
+      // return { loggedIn: false, user: null, password, role: null };
+      return this.commonService.errorMessage(
+        [],
+        CONSTANT_MSG.USER_DOES_NOT_EXIST,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    console.log("password",password);
+   console.log("password",user.password);
+    
+    // const validPassword = password == user.password;
+    const validPassword = await bcrypt.compare(password, user.password);
+    
+      console.log(" validpassword",validPassword)
+    if (!validPassword) {
+     
+      return this.commonService.errorMessage(
+        [],
+        CONSTANT_MSG.PASSWORD_DOES_NOT_MATCH,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+   
+    return this.commonService.successMessage(
+      user,
+      CONSTANT_MSG.FETCH_SUCCESSFULLY,
+      HttpStatus.OK,
+    );
+   
+  } catch (err) {
+    console.log('err', err);
+    return this.commonService.errorMessage(
+      [],
+      CONSTANT_MSG.INTERNAL_SERVER_ERR,
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
+  }
+}
+
 }
