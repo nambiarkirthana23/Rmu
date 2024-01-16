@@ -222,7 +222,13 @@ export const CONSTANT_MSG = {
    USER_DELETED_SUCCESSFULLY:'user deleted successfully',
    FAILED_TO_DELETE_USER:'failed to delete user',
    USER_DOES_NOT_EXIST:'user does not exist',
-   PASSWORD_DOES_NOT_MATCH:'password does not match'
+   PASSWORD_DOES_NOT_MATCH:'password does not match',
+   FAIL_TO_ADD_USER_PERMISSION:'failed to add user permission',
+   ADDED_USER_PERMISSION:'added user permission',
+   RETRIEVED_USER_PERMISSION_DETAILS_SUCCESSFULLY:'retrived user_permission details successfully',
+   FAIL_TO_RETRIEVE_USER_PERMISSION_DETAILS:'fail to retreieve user permission details',
+   FAILED_TO_RETREIVE_USER_RID_DETAILS:'failed to retreive user_rid details',
+   RETREIVED_USER_RID_DATA_SUCCESSFULLY:'retreived user rid data successfully'
 
 
 

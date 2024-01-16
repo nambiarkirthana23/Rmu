@@ -4,8 +4,8 @@ import { IsAlphanumeric, IsEmail, IsNotEmpty, IsNumber, IsString, Length, Matche
 
 export class UserDto
 {
-  @IsNotEmpty()
-  role:number 
+   @IsNotEmpty()
+   role:number;
 
     @IsNotEmpty()
     @IsEmail()

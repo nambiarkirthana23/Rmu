@@ -4,6 +4,7 @@ import { UserDto } from "./user.dto";
 import { CommonService } from "src/common-service/common-service";
 import { CONSTANT_MSG } from "src/common-dto/const";
 import { JwtService } from '@nestjs/jwt';
+import { UserPermissionDto } from "./permission.dto";
 
 export class UserService{
     constructor(
@@ -15,6 +16,7 @@ export class UserService{
     
       async addUser(body:UserDto) {
         try {
+        
           let resp = await this.deviceProxy.send({ cmd: 'addUser' }, body).toPromise()
           return resp;
         } catch (err) {
@@ -126,6 +128,31 @@ export class UserService{
           console.log(err)
         }
       }
+
+
+      async addUserPermission(body:UserPermissionDto) {
+        try {
+        
+          let resp = await this.deviceProxy.send({ cmd: 'addUserPermission' }, body).toPromise()
+          return resp;
+        } catch (err) {
+            return err;
+        }
+      }
+
+
+      async getUserPermission(id:number) {
+        try {
+        
+          let resp = await this.deviceProxy.send({ cmd: 'getUserPermission' }, id).toPromise()
+          return resp;
+        } catch (err) {
+            return err;
+        }
+      }
+
+
+      
 
 
 

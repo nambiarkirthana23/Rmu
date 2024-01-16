@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { UserRoles } from "./user_roles.entity";
+import { Permission } from "./permission.entity";
 
 @Entity({name:'users_tbl'})
 export class User{
@@ -8,17 +8,12 @@ export class User{
     ref_id:number;
     
     @Column()
-    role:number
+    role:number;
 
-    @ManyToOne(() => UserRoles, role => role.users)
-    @JoinColumn({ name: 'role' })
-    roles: UserRoles;
-  
-
-
-    // @ManyToOne(() => UserRoles, userRole => userRole.users)
-    // @JoinColumn({ name: 'role' }) 
+    // @ManyToOne(() => UserRoles, role => role.users)
+    // @JoinColumn({ name: 'role' })
     // role: UserRoles;
+
 
     @Column({name:'email'})
     email:string
@@ -37,6 +32,9 @@ export class User{
 
     @Column({name:'department'})
     department:string;
+
+    // @OneToMany(() => Permission, permission => permission.user)
+    // permissions: Permission[];
 
 
    

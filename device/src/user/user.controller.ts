@@ -2,6 +2,7 @@ import { Controller } from "@nestjs/common";
 import { MessagePattern } from "@nestjs/microservices";
 import { UserService } from "./user.service";
 import { UserDto } from "./user.dto";
+import { UserPermissionDto } from "./permission.dto";
 
 @Controller()
 export class UserController{
@@ -12,10 +13,11 @@ export class UserController{
     @MessagePattern({cmd:'addUser'})
     async addUser(body:UserDto){
         try{
-        let resp = await this.userService.addUser(body)
+        //const{role,email,password,name,mobile,agency,department}=body;
+        let resp = await this.userService.addUser(body);
         return resp;
         }catch(err){
-         console.log("err",err)
+         console.log("err",err);
          return err;
         }
     }
@@ -89,6 +91,35 @@ export class UserController{
          return err;
         }
     }
+
+
+    @MessagePattern({cmd:'addUserPermission'})
+    async addUserPermission(body:UserPermissionDto){
+        try{
+       
+        let resp = await this.userService.addUserPermission(body);
+        return resp;
+        }catch(err){
+         console.log("err",err);
+         return err;
+        }
+    }
+
+
+    @MessagePattern({cmd:'getUserPermission'})
+    async getUserPermission(id:number){
+        try{
+       
+        let resp = await this.userService.getUserPermission(id);
+        return resp;
+        }catch(err){
+         console.log("err",err);
+         return err;
+        }
+    }
+
+
+    
 
 
 

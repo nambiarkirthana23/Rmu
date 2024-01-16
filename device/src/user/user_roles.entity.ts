@@ -1,17 +1,17 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./user.entity";
 
 @Entity({name:'roles_tbl'})
 export class UserRoles
 {
- @PrimaryGeneratedColumn({name:'ref_id'})
- ref_id:number;
+ 
+  @PrimaryGeneratedColumn({name:'ref_id'})
+  ref_id:number
 
- @Column()
- role:string;
+  @Column({name:'role'})
+  role:string;
 
- @OneToMany(() => User, user => user.role)
-  users: User[];
-
+  
+// @OneToMany(() => User, user => user.role)
+// users: User[]
 
 }

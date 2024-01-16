@@ -24,6 +24,8 @@ import { FarmerProjectDetails } from 'src/configurations/farmers/entities/farmer
 import { PumpSite } from 'src/configurations/pump_site/entity/pump_site.entity';
 import { User } from 'src/user/user.entity';
 import { UserRoles } from 'src/user/user_roles.entity';
+import { Permission } from 'src/user/permission.entity';
+import { UserRid } from 'src/user/user_rid.entity';
 ;
 
 export default class TypeOrmConfig {
@@ -36,7 +38,7 @@ export default class TypeOrmConfig {
       password: configService.get('DB_PASSWORD'),
       database: configService.get('DB_NAME'),
       migrations:['migrations/**'],
-      entities: [Device,Rid,RidConfig,DeviceRid,ConfigTable,FlowFormula,Invalid,ReconfigurationDetail,ReconfigurationOldConfig,State,Vendor,Sim,RidSim,Agency,OEM,ProjectController,ProjectMaster,PumpModel,SolarPump,FarmerProjectDetails,PumpSite,User,UserRoles],
+      entities: [Device,Rid,RidConfig,DeviceRid,ConfigTable,FlowFormula,Invalid,ReconfigurationDetail,ReconfigurationOldConfig,State,Vendor,Sim,RidSim,Agency,OEM,ProjectController,ProjectMaster,PumpModel,SolarPump,FarmerProjectDetails,PumpSite,User,UserRoles,Permission,UserRid],
       
         // other configurations
         "logging": true,
