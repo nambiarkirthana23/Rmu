@@ -27,6 +27,7 @@ import { UserRoles } from 'src/user/user_roles.entity';
 import { Permission } from 'src/user/permission.entity';
 import { UserRid } from 'src/user/user_rid.entity';
 import { YearMonth } from 'src/device/status/year_month.entity';
+import { DateEntity } from 'src/device/status/date.entity';
 ;
 
 export default class TypeOrmConfig {
@@ -39,7 +40,7 @@ export default class TypeOrmConfig {
       password: configService.get('DB_PASSWORD'),
       database: configService.get('DB_NAME'),
       migrations:['migrations/**'],
-      entities: [Device,Rid,RidConfig,DeviceRid,ConfigTable,FlowFormula,Invalid,ReconfigurationDetail,ReconfigurationOldConfig,State,Vendor,Sim,RidSim,Agency,OEM,ProjectController,ProjectMaster,PumpModel,SolarPump,FarmerProjectDetails,PumpSite,User,UserRoles,Permission,UserRid,YearMonth],
+      entities: [Device,Rid,RidConfig,DeviceRid,ConfigTable,FlowFormula,Invalid,ReconfigurationDetail,ReconfigurationOldConfig,State,Vendor,Sim,RidSim,Agency,OEM,ProjectController,ProjectMaster,PumpModel,SolarPump,FarmerProjectDetails,PumpSite,User,UserRoles,Permission,UserRid,YearMonth,DateEntity],
       
         // other configurations
         "logging": true,

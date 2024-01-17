@@ -47,5 +47,6 @@ export const CONSTANT_MSG = {
    PROJECT_UPDATED_SUCCESSFULLY:'project updated successfully',
    PROJECT_DELETED_SUCCESSFULLY:'project deleted successfully',
    TOKEN_GENERATED_SUCCESSFULLY:'token generated successfully',
-   INVALID_CREDENTIALS:'invalid credentials'
+   INVALID_CREDENTIALS:'invalid credentials',
+   'UPDATED':'updated'
 };

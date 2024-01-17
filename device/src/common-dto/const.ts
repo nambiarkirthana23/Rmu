@@ -228,8 +228,8 @@ export const CONSTANT_MSG = {
    RETRIEVED_USER_PERMISSION_DETAILS_SUCCESSFULLY:'retrived user_permission details successfully',
    FAIL_TO_RETRIEVE_USER_PERMISSION_DETAILS:'fail to retreieve user permission details',
    FAILED_TO_RETREIVE_USER_RID_DETAILS:'failed to retreive user_rid details',
-   RETREIVED_USER_RID_DATA_SUCCESSFULLY:'retreived user rid data successfully'
-
+   RETREIVED_USER_RID_DATA_SUCCESSFULLY:'retreived user rid data successfully',
+   UPDATED:'updated'
 
 
 

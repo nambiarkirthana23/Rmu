@@ -21,10 +21,13 @@ import { ReconfigurationDetail } from '../entities/reconfiguration_details';
 import { ReconfigurationOldConfig } from '../entities/reconfiguration_old_config.entity';
 import { ConfigTable } from '../entities/config.entity';
 import { ConfigService } from '../services/config.service';
+import { DeviceStatusService } from '../status/deviceStatus.service';
+import { DateEntity } from '../status/date.entity';
+import { YearMonth } from '../status/year_month.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Device,Rid,RidConfig,DeviceRid,ConfigTable,FlowFormula,Invalid,ReconfigurationDetail,ReconfigurationOldConfig,State,Vendor]),
+    TypeOrmModule.forFeature([Device,Rid,RidConfig,DeviceRid,ConfigTable,FlowFormula,Invalid,ReconfigurationDetail,ReconfigurationOldConfig,State,Vendor,DateEntity,YearMonth]),
 
     ClientsModule.register([
       {
@@ -39,6 +42,6 @@ import { ConfigService } from '../services/config.service';
     // RidService
   ],
   controllers: [DeviceController],
-  providers: [DeviceService,CommonService,RidService,FluxService,StateService,VendorService,ConfigService],
+  providers: [DeviceService,CommonService,RidService,FluxService,StateService,VendorService,ConfigService,DeviceStatusService],
 })
 export class DeviceModule {}
