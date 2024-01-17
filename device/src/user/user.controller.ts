@@ -79,17 +79,19 @@ export class UserController{
          return error;
         }
     }
-    @MessagePattern({cmd:'signIn'})
-    async signIn(body:{email:string,password:string}){
-        try{
-            console.log("signIn body",body);
-          const{email,password}=body;
-        let resp = await this.userService.signIn(body);
-        return resp;
-        }catch(err){
-         console.log("err",err)
-         return err;
-        }
+ 
+
+    @MessagePattern({ cmd: 'login' })
+    async signIn(data: { email: string; password: string }) {
+      try {
+        console.log("data", data)
+       let resp = await this.userService.signIn(data);
+       console.log("resp",resp)
+       return resp
+      } catch (error) {
+        console.log(error)
+        return error
+      }
     }
 
 

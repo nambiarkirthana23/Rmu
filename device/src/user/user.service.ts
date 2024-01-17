@@ -202,18 +202,98 @@ export class UserService {
   }
 
 
-  async signIn(body: { email: string; password: string }) {
+  // async signIn(body: { email: string; password: string }) {
+  //   try {
+  //     console.log("signIn body", body);
+  //     const { email, password } = body;
+  //     let payload: JwtPayload;
+  //     let user = await this.userRepository
+  //       .createQueryBuilder('a')
+  //       .select([
+  //         'a.ref_id as ref_id',
+  //         'a.email as email',
+  //         'a.password as password',
+  //         'a.name as name',
+  //         'a.department as department',
+  //         'b.role as role',
+  //       ])
+  //       .innerJoin(UserRoles, 'b', 'a.role = b.ref_id')
+  //       .where('a.email = :email', { email })
+  //       .getRawOne();
+  //     console.log('user', user);
+
+
+  //     if (!user) {
+
+  //       return this.commonService.errorMessage(
+  //         [],
+  //         CONSTANT_MSG.USER_DOES_NOT_EXIST,
+  //         HttpStatus.NOT_FOUND,
+  //       );
+  //     }
+  //     console.log("password", password);
+  //     console.log("password", user.password);
+
+
+  //     const validPassword = await bcrypt.compare(password, user.password);
+
+  //     console.log(" validpassword", validPassword)
+  //     if (!validPassword) {
+
+  //       return this.commonService.errorMessage(
+  //         [],
+  //         CONSTANT_MSG.PASSWORD_DOES_NOT_MATCH,
+  //         HttpStatus.BAD_REQUEST,
+  //       );
+  //     }
+  //    console.log(user.ref_id);
+  //     let permissions = await this.getUserPermission(user.ref_id);
+  //     console.log("permissions",permissions.data);
+
+  //     let user_rids = await this.getUserRids(user.ref_id);
+  //     console.log("user_rids",user_rids.data);
+
+  //     let permm=permissions.data
+  //     return this.commonService.successMessage(
+  //       {user,permm,user_rids},
+  //       CONSTANT_MSG.FETCH_SUCCESSFULLY,
+  //       HttpStatus.OK,
+  //     );
+
+
+  //     return this.commonService.successMessage(
+  //       user,
+  //       CONSTANT_MSG.FETCH_SUCCESSFULLY,
+  //       HttpStatus.OK,
+  //     );
+
+  //   } catch (err) {
+  //     console.log('err', err);
+  //     return this.commonService.errorMessage(
+  //       [],
+  //       CONSTANT_MSG.INTERNAL_SERVER_ERR,
+  //       HttpStatus.INTERNAL_SERVER_ERROR,
+  //     );
+  //   }
+
+
+
+  // }
+
+
+
+  async signIn(data: { email: string; password: string }) {
     try {
-      console.log("signIn body", body);
-      const { email, password } = body;
-      let payload: JwtPayload;
+      const { email, password } = data;
+
+      // let user = await this.userRepository.findOne({ where: { email: email } });
       let user = await this.userRepository
         .createQueryBuilder('a')
         .select([
           'a.ref_id as ref_id',
-          'a.email as email',
-          'a.password as password',
           'a.name as name',
+          'a.password as password',
+          'a.email as email',
           'a.department as department',
           'b.role as role',
         ])
@@ -221,25 +301,28 @@ export class UserService {
         .where('a.email = :email', { email })
         .getRawOne();
       console.log('user', user);
-
+      console.log('Data received in login method:', data);
 
       if (!user) {
-
+        
         return this.commonService.errorMessage(
           [],
           CONSTANT_MSG.USER_DOES_NOT_EXIST,
           HttpStatus.NOT_FOUND,
         );
       }
-      console.log("password", password);
-      console.log("password", user.password);
+     
+      console.log('Password1:', user.password);
+      console.log(' stored Password:', password);
 
 
-      const validPassword = await bcrypt.compare(password, user.password);
-
-      console.log(" validpassword", validPassword)
-      if (!validPassword) {
-
+      let isPasswordValid = bcrypt.compare(password,user.password)
+      
+      console.log(' Result:', isPasswordValid);
+      
+      console.log(isPasswordValid, 'passvalid');
+      if (!isPasswordValid) {
+        // return { loggedIn: false, user: null, password, role: null };
         return this.commonService.errorMessage(
           [],
           CONSTANT_MSG.PASSWORD_DOES_NOT_MATCH,
@@ -247,46 +330,32 @@ export class UserService {
         );
       }
 
-      // let permissions = await this.getUserPermission(user.ref_id);
-      // let user_rids = await this.getUserRids(user.ref_id);
+      let permissions = await this.getUserPermission(user.ref_id);
+      console.log("permission",permissions.data)
 
-      // payload = {
-      //   email: email,
-      //   role: user.user.role,
-      // }
-      // console.log("Permission ", permissions, user_rids.data)
-  
-      // let userInfo = {
-      //   email: email,
-      //   name: user.user.name,
-      //   role: user.user.role,
-      //   permissions: permissions.data.length == 0 ? [] : permissions.data[0],
-      //   rids: user_rids.data
-      // }
+      let user_rids = await this.getUserRids(user.ref_id);
+      console.log("user_rids",user_rids.data)
 
-
-
-
-
-
+      let permission1=permissions.data
       return this.commonService.successMessage(
-        user,
+        {user,permission1,user_rids},
         CONSTANT_MSG.FETCH_SUCCESSFULLY,
         HttpStatus.OK,
       );
 
+      // return { loggedIn: true, user, password, role: user.role,id:user.id };
+      //return { loggedIn: true, user };
     } catch (err) {
       console.log('err', err);
-      return this.commonService.errorMessage(
-        [],
-        CONSTANT_MSG.INTERNAL_SERVER_ERR,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      return err
+      // return this.commonService.errorMessage(
+      //   err,
+      //   CONSTANT_MSG.INTERNAL_SERVER_ERR,
+      //   HttpStatus.INTERNAL_SERVER_ERROR,
+      // );
     }
-
-
-
   }
+
 
 
   async addUserPermission(body: UserPermissionDto) {
@@ -308,7 +377,9 @@ export class UserService {
 
   async getUserPermission(user_id: number) {
     try {
-      let userId = await this.permissionRepository.findOne({ where: { user_id } });
+      let userId = await this.permissionRepository.findOne({ where: { user_id} });
+      console.log("userId",userId);
+      
       if (!userId) {
         return this.commonService.errorMessage('', CONSTANT_MSG.FAIL_TO_RETRIEVE_USER_PERMISSION_DETAILS, HttpStatus.BAD_REQUEST)
       }
@@ -323,17 +394,27 @@ export class UserService {
   }
 
 
-  getUserRids = async (user_id: any) => {
+
+    async getUserRids(user_id:any){
     try {
+      console.log("user_id",user_id);
       // let query = `SELECT * FROM user_rids where user_id = ${user_id}`;
      // let query = `select a.* from rid_tbl a INNER JOIN user_rids b ON a.rid = b.rid where b.user_id = ${user_id};`
 
+      // let query = await this.ridRepository
+      //   .createQueryBuilder('a')
+      //   .select('a.*')
+      //   .innerJoin(UserRid, 'b', 'a.rid = b.rid')
+      //   .where('b.user_id = :user_id', { user_id })
+      //   .getRawOne();
+
       let query = await this.ridRepository
-        .createQueryBuilder('a')
-        .select('a.*')
-        .innerJoin(UserRid, 'b', 'a.rid = b.rid')
-        .where('b.user_id = :user_id', { user_id })
-        .getRawOne();
+      .createQueryBuilder('a')
+      .select(['a.ref_id', 'a.rid', 'a.cont_mfr'])
+      .innerJoin(UserRid, 'b', 'a.rid = b.rid')
+      .where('b.user_id = :user_id', { user_id })
+      .getMany();
+        console.log("user rid",query);
         if(!query)
         {
           return this.commonService.errorMessage('',CONSTANT_MSG.FAILED_TO_RETREIVE_USER_RID_DETAILS,HttpStatus.BAD_REQUEST)

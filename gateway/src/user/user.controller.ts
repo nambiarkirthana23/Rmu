@@ -6,6 +6,9 @@ import { CommonService } from "src/device/services/common-service";
 import { response } from "express";
 import { UserAuthGuard } from "./guards/auth-guard";
 import { UserPermissionDto } from "./permission.dto";
+import { RolesGuard } from "./guards/role-guards";
+import { UserRole } from "./user_enum";
+import { Roles } from "./role.decorator";
 
 @Controller('user')
 export class UserController{
@@ -59,10 +62,11 @@ export class UserController{
         }
       }
 
-
+//created permission table,
 
       @Get('/:id')
-      @UseGuards(UserAuthGuard)
+     @UseGuards(RolesGuard,UserAuthGuard)
+      @Roles(UserRole.USER)
       async getUserById( @Res() res: any,@Param('id') id:number) {
         try {
           let resp = await this.userService.getUserById(id);
@@ -138,24 +142,56 @@ async deleteUser( @Res() res: any,@Param('id') id:number) {
 
 
 
-@Post('/login')
-  async signIn(@Body() body: { email: string; password: string },@Res() res:any) {
-    try {
-      console.log("signIn body",body);
+// @Post('/login')
+//   async signIn(@Body() body: { email: string; password: string },@Res() res:any) {
+//     try {
+//       console.log("signIn body",body);
       
-      const resp = await this.userService.signIn(body);
+//       const resp = await this.userService.signIn(body);
+
         
-       if (resp.statusCode === HttpStatus.OK) {
+//        if (resp.statusCode === HttpStatus.CREATED) {
+//         res
+//           .status(resp.statusCode)
+//           .send({ success: resp.message,data:resp.data.access_token });
+//          // console.log(res.data.access_token);
+//       } else {
+//         res.status(resp.statusCode).send({ error: resp.message });
+      
+//       }
+//       console.log("resp",resp);
+     
+//     } catch (err) {
+//       console.error('Login Error:', err);
+//       res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+//         message: CONSTANT_MSG.INTERNAL_SERVER_ERR,
+//         statusCode: false,
+//       });
+   
+//     }
+
+//   }
+
+
+@Post('/signIn')
+  async signIn(@Body() userDto: { email: string; password: string },@Res() res:any) {
+    try {
+      console.log(userDto);
+      const resp = await this.userService.signIn(userDto);
+
+      if (resp.code == 'ECONNREFUSED') {
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .send({ error: 'Device Microservice ECONNREFUSED' });
+      } else if (resp.statusCode === HttpStatus.OK) {
         res
           .status(resp.statusCode)
-          .send({ success: resp.message,data:resp.data.access_token });
-         // console.log(res.data.access_token);
+          .send({ status:resp.statusCode,message: resp.message, data: resp.data });
       } else {
-        res.status(resp.statusCode).send({ error: resp.message });
-      
+        res.status(resp.statusCode).send({ status:resp.statusCode, error: resp.message });
       }
-      console.log("resp",resp);
-     
+      console.log("resp",resp)
+   
     } catch (err) {
       console.error('Login Error:', err);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
