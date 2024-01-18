@@ -21,12 +21,15 @@ import { SolarPumpModule } from './masters/solar_pump/solar_pump.module';
 import { FarmerModule } from './configurations/farmers/module/farmer.module';
 import { PumpSiteModule } from './configurations/pump_site/module/pump_site.module';
 import { UserModule } from './user/user.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [ 
     ConfigModule.forRoot({
       isGlobal: true,
+  
     }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync(typeOrmconfigAsync),
     ClientsModule.register([
     {

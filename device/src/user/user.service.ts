@@ -13,6 +13,7 @@ import { Permission } from "./permission.entity";
 import { Rid } from "src/device/entities/rid.entity";
 import { UserRid } from "./user_rid.entity";
 import { JwtPayload } from "./jwt_payload.interface";
+import { Cron } from "@nestjs/schedule";
 
 export class UserService {
   constructor(
@@ -117,10 +118,11 @@ export class UserService {
 
   }
 
-
+ 
   async getAllUser() {
     try {
       let resp = await this.userRepository.find();
+      console.log(resp);
       if (!resp) {
         return this.commonService.errorMessage('', CONSTANT_MSG.FAIL_TO_RETRIEVE_USER_DETAILS, HttpStatus.BAD_REQUEST);
       }
@@ -134,10 +136,11 @@ export class UserService {
     }
   }
 
-
+  @Cron('5 * * * * *')
   async getUserById(id: number) {
     try {
       let resp = await this.userRepository.findOne({ where: { ref_id: id } });
+      //console.log(resp);
       if (!resp) {
         return this.commonService.errorMessage('', CONSTANT_MSG.FAIL_TO_RETRIEVE_USER_DETAILS, HttpStatus.BAD_REQUEST);
 

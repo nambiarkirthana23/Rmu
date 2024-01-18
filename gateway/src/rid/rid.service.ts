@@ -22,24 +22,24 @@ export class RidService {
     }
   }
 
-  async getConfig(rid_ref_id: number) {
-    try {
-      console.log('gws', rid_ref_id);
-      const resp = await this.deviceProxy
-        .send({ cmd: 'checkConfig' }, { rid_ref_id })
-        .toPromise();
-      return resp;
-    } catch (err) {
-      console.log(err);
-      return err;
-    }
-  }
+  // async getConfig(id: number) {
+  //   try {
+  //     console.log('gws', rid_ref_id);
+  //     const resp = await this.deviceProxy
+  //       .send({ cmd: 'checkConfig' }, { rid_ref_id })
+  //       .toPromise();
+  //     return resp;
+  //   } catch (err) {
+  //     console.log(err);
+  //     return err;
+  //   }
+  // }
 
-  async getRIDByRefID(id: number) {
+  async getRIDByID(id: number) {
     try {
-      console.log('getbyid-id', id);
+     
       const resp = await this.deviceProxy
-        .send({ cmd: 'getRIDByRefID' }, id)
+        .send({ cmd: 'getRIDID' }, id)
         .toPromise();
       return resp;
     } catch (err) {

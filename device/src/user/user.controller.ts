@@ -86,6 +86,7 @@ export class UserController{
       try {
         console.log("data", data)
        let resp = await this.userService.signIn(data);
+       
        console.log("resp",resp)
        return resp
       } catch (error) {

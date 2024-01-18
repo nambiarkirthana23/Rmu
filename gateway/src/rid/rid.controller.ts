@@ -37,39 +37,39 @@ export class RIDController {
     }
   }
 
-  @Get('/:rid_ref_id')
-  async getAllConfig(@Res() res: any, @Param('rid_ref_id') rid_ref_id: number) {
-    try {
-      console.log('gw', rid_ref_id);
-      let config = await this.ridService.getConfig(rid_ref_id);
-      if (config.code == 'ECONNREFUSED') {
-        res
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .send({ error: 'config MicroService ECONNREFUSED' });
-      } else if (config.statusCode === HttpStatus.OK) {
-        // console.log("td", config)
-        res
-          .status(config.statusCode)
-          .send({ success: config.message, data: config.data });
-      } else {
-        res.status(config.statusCode).send({ error: config.message });
-      }
-    } catch (err) {
-      // console.error("c", err)
+  // @Get('/:id')
+  // async getRid(@Res() res: any, @Param('id') id:number) {
+  //   try {
+  //     console.log('gw', id);
+  //     let config = await this.ridService.getConfig(id);
+  //     if (config.code == 'ECONNREFUSED') {
+  //       res
+  //         .status(HttpStatus.INTERNAL_SERVER_ERROR)
+  //         .send({ error: 'config MicroService ECONNREFUSED' });
+  //     } else if (config.statusCode === HttpStatus.OK) {
+  //       // console.log("td", config)
+  //       res
+  //         .status(config.statusCode)
+  //         .send({ success: config.message, data: config.data });
+  //     } else {
+  //       res.status(config.statusCode).send({ error: config.message });
+  //     }
+  //   } catch (err) {
+  //     // console.error("c", err)
 
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-        message: CONSTANT_MSG.INTERNAL_SERVER_ERR,
-        statusCode: false,
-      });
-    }
-  }
+  //     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+  //       message: CONSTANT_MSG.INTERNAL_SERVER_ERR,
+  //       statusCode: false,
+  //     });
+  //   }
+  // }
 
 
   @Get('/:id')
-  async getRid(@Param() param:any,@Res() res:any){
+  async getRid(@Param('id') id:number,@Res() res:any){
     try{
-      // console.log("enter in get by id")
-    let resp = await this.ridService.getRIDByRefID(param.id);
+    console.log("id",id);
+    let resp = await this.ridService.getRIDByID(id);
     if(resp.code == 'ECONNREFUSED'){
       res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)

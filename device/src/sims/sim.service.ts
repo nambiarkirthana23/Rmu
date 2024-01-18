@@ -5,6 +5,7 @@ import { Sim } from 'src/device/entities/sim.entity';
 import { CommonService } from 'src/device/services/common-service';
 import { CONSTANT_MSG } from 'src/common-dto/const';
 import { RidSim } from 'src/device/entities/rid.sim.entity';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class SimService {
@@ -47,12 +48,13 @@ export class SimService {
       );
     }
   }
-
+ 
   async getSim(id: number): Promise<any> {
     try {
       let sim = await this.simRepository.findOne({
         where: { ref_id: id },
       });
+      console.log(sim);
       if (!sim || Object.keys(sim).length === 0) {
         return this.commonService.errorMessage(
           [],

@@ -15,4 +15,7 @@ export class YearMonth
   @Column({name:'imei_id'})
   imei_id:number;
 
+  
+  
+
 }

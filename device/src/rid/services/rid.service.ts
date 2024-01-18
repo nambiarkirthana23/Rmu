@@ -93,12 +93,10 @@ export class RidService {
 
   async getRIDbyID(id: any): Promise<any> {
     try {
-      console.log('s', id);
+      console.log('ID', id);
       let query = await this.ridRepository.find({ where: { rid: id } });
       console.log('querry', query);
-      // console.log('q', query[0].ref_id);
-      // console.log('qu',query)
-      // if (!query ) {
+    
       if (!query) {
         return this.commonService.errorMessage(
           [],
@@ -114,8 +112,8 @@ export class RidService {
       } else {
         // console.log("query.ref_id",query[0].ref_id)
         return this.commonService.successMessage(
-          query[0].ref_id,
-          // query,
+         
+          query,
           CONSTANT_MSG.ID_OK,
           HttpStatus.OK,
         );
@@ -231,8 +229,9 @@ export class RidService {
 
   async getRIDByRefID(id: number) {
     try {
+      console.log("getRIDByRefId",id);
       let query = await this.ridRepository.find({ where: { ref_id: id } });
-      if (!query || query.length == 0) {
+      if (!query) {
         return this.commonService.errorMessage(
           [],
           CONSTANT_MSG.ID_NOT_FOUND,

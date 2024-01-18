@@ -29,17 +29,17 @@ export class RidController {
         try{
             const{rid_ref_id}=rData
             console.log("c",rid_ref_id)
-            const resp=await this.ridService.checkConfigRidExist(rid_ref_id)
+            const resp=await this.ridService.checkConfigRidExist(rid_ref_id);
             return resp;
         }catch(err){
             return err;
         }
     }
 
-    @MessagePattern({cmd:'getRIDByRefID'})
+    @MessagePattern({cmd:'getRIDID'})
     async getRIDByRefID(id:number):Promise<any>{
         try{
-          const resp = await this.ridService.getRIDByRefID(id)
+          const resp = await this.ridService.getRIDByRefID(id);
           return resp;
         } catch(err){
           return err

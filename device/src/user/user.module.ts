@@ -9,10 +9,12 @@ import { UserRoles } from "./user_roles.entity";
 import { Permission } from "./permission.entity";
 import { UserRid } from "./user_rid.entity";
 import { Rid } from "src/device/entities/rid.entity";
+// import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
     imports:[
         TypeOrmModule.forFeature([User,UserRoles,Permission,UserRid,Rid]),
+        // ScheduleModule.forRoot(),
         ClientsModule.register([
             {
               name: 'DEVICE_SERVICE',
